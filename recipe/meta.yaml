@@ -20,7 +20,9 @@ requirements:
   host:
     - libflint
     - boost-cpp
+    - gmp
   run:
+    - gmp
     - {{ pin_compatible("libflint", max_pin="x.x") }}
 
 test:
