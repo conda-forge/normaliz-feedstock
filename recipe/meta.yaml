@@ -10,19 +10,25 @@ source:
   sha256: 48b9c4b76e4c5dcab3c7845e98d889a45869fa14b4ff23cae003e5c617f08b3b
 
 build:
-  number: 0
+  number: 1
   skip: True  # [win]
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - llvm-openmp    # [osx]
   host:
     - libflint
     - boost-cpp
     - gmp
+    - llvm-openmp    # [osx]
+    - e-antic
+    - nauty
   run:
     - gmp
+    - e-antic
+    - llvm-openmp    # [osx]
     - {{ pin_compatible("libflint", max_pin="x.x") }}
 
 test:
