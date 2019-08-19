@@ -22,7 +22,7 @@ case `uname` in
         export CFLAGS="-MD -I$PREFIX/Library/include -O2"
         export LDFLAGS="$LDFLAGS -L$PREFIX/Library/lib"
         export lt_cv_deplibs_check_method=pass_all
-        cp $PREFIX/Library/gmp.lib $PREFIX/Library/gmpxx.lib
+        cp $PREFIX/Library/lib/gmp.lib $PREFIX/Library/lib/gmpxx.lib
         ./configure --prefix="$PREFIX/Library" --without-e-antic --with-nauty=$PREFIX --without-flint --with-gmp=$PREFIX
         ;;
 esac
@@ -36,5 +36,5 @@ if [[ `uname` == MINGW* ]]; then
     LIBRARY_LIB=$PREFIX/Library/lib
     mv "${LIBRARY_LIB}/${PROJECT}.lib" "${LIBRARY_LIB}/${PROJECT}_static.lib"
     mv "${LIBRARY_LIB}/${PROJECT}.dll.lib" "${LIBRARY_LIB}/${PROJECT}.lib"
-    rm $PREFIX/Library/gmpxx.lib
+    rm $PREFIX/Library/lib/gmpxx.lib
 fi
