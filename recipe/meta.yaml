@@ -40,6 +40,7 @@ requirements:
     - llvm-openmp          # [osx]
     - e-antic              # [not win]
     - nauty
+    - pthreads-win32       # [win]
   run:
     - llvm-openmp          # [osx]
 
