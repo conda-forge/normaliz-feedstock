@@ -21,11 +21,12 @@ case `uname` in
         export CCCL=clang-cl
         export NM=llvm-nm
         export CFLAGS="-MD -I$PREFIX/Library/include -O2"
-        export CXXFLAGS="-MD -I$PREFIX/Library/include -O2"
+        export CXXFLAGS="-MD -I$PREFIX/Library/include -O2 -EHs"
         export LDFLAGS="$LDFLAGS -L$PREFIX/Library/lib"
         export lt_cv_deplibs_check_method=pass_all
         cp $PREFIX/Library/lib/gmp.lib $PREFIX/Library/lib/gmpxx.lib
-        ./configure --prefix="$PREFIX/Library" --without-e-antic --with-nauty=$PREFIX --without-flint --with-gmp="$PREFIX/Library" || (cat config.log; false)
+        ./configure --prefix="$PREFIX/Library" --with-nauty=$PREFIX -with-gmp="$PREFIX/Library" || (cat config.log; false)
+        cat config.log
         ;;
 esac
 
