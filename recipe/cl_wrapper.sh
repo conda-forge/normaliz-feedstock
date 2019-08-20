@@ -100,6 +100,11 @@ EOF
         clopt+=("${slash}c")
         ;;
 
+    -fopenmp)
+        clopt+=("-Xclang")
+        clopt+=("-fopenmp")
+        ;;
+
     -g[0-9] | -g)
         # cl only supports one debugging level
         clopt+=("${slash}Zi")

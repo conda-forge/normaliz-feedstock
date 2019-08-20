@@ -21,7 +21,7 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - llvm-openmp          # [osx]
+    - llvm-openmp          # [osx or win]
     - posix                # [win]
     - clang                # [win]
     - lld                  # [win]
@@ -39,12 +39,12 @@ requirements:
     - boost-cpp
     - gmp                  # [not win]
     - mpir                 # [win]
-    - llvm-openmp          # [osx]
+    - llvm-openmp          # [osx or win]
     - e-antic              # [not win]
     - nauty
     - pthreads-win32       # [win]
   run:
-    - llvm-openmp          # [osx]
+    - llvm-openmp          # [osx or win]
 
 test:
   commands:

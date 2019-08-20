@@ -21,11 +21,13 @@ case `uname` in
         export AR=llvm-ar
         export LD=lld-link
         export CCCL=clang-cl
-        export NM=llvm-nm
+        # For some reason llvm-nm doesn't work in this case. Unsetting this would make autotools use dumpbin
+        # export NM=llvm-nm
         export CFLAGS="-MD -I$PREFIX/Library/include -O2"
         export CXXFLAGS="-MD -I$PREFIX/Library/include -O2 -EHs"
         export LDFLAGS="$LDFLAGS -L$PREFIX/Library/lib"
         export lt_cv_deplibs_check_method=pass_all
+        export LIBS="-lomp"
         cp $PREFIX/Library/lib/gmp.lib $PREFIX/Library/lib/gmpxx.lib
         ./configure --prefix="$PREFIX/Library" --with-nauty=$PREFIX -with-gmp="$PREFIX/Library" || (cat config.log; false)
         cat config.log
