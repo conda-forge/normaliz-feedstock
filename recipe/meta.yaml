@@ -8,6 +8,8 @@ package:
 source:
   url: https://github.com/Normaliz/Normaliz/releases/download/v{{ version }}/normaliz-{{ version }}-full.zip
   sha256: 48b9c4b76e4c5dcab3c7845e98d889a45869fa14b4ff23cae003e5c617f08b3b
+  patches:
+    - gh259.patch
 
 build:
   number: 2
@@ -21,9 +23,9 @@ requirements:
     - {{ compiler('cxx') }}
     - llvm-openmp          # [osx]
     - posix                # [win]
-    - clangdev             # [win]
+    - clang                # [win]
     - lld                  # [win]
-    - llvmdev              # [win]
+    - llvm-tools           # [win]
     - m2-automake-wrapper  # [win]
     - m2-libtool           # [win]
     - m2-autoconf          # [win]
