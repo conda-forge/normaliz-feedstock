@@ -31,7 +31,7 @@ case `uname` in
 esac
 
 make -j${CPU_COUNT}
-make check -j${CPU_COUNT}
+make check -k
 make install
 
 if [[ `uname` == MINGW* ]]; then
