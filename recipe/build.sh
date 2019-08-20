@@ -4,6 +4,8 @@ set -e
 
 autoreconf --install
 chmod +x configure
+which make
+make --version
 
 case `uname` in
     Darwin|Linux)
