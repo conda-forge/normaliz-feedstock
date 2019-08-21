@@ -10,6 +10,7 @@ source:
   sha256: 48b9c4b76e4c5dcab3c7845e98d889a45869fa14b4ff23cae003e5c617f08b3b
   patches:
     - gh259.patch
+    - dll.patch
 
 build:
   number: 2
@@ -31,6 +32,7 @@ requirements:
     - m2-autoconf          # [win]
     - m2-make              # [win]
     - m2-m4                # [win]
+    - cmake                # [win]
     - autoconf             # [not win]
     - automake             # [not win]
     - libtool              # [not win]

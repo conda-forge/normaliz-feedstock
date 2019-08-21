@@ -21,16 +21,19 @@ case `uname` in
         export AR=llvm-ar
         export LD=lld-link
         export CCCL=clang-cl
-        # For some reason llvm-nm doesn't work in this case. Unsetting this would make autotools use dumpbin
-        # export NM=llvm-nm
-        export CFLAGS="-MD -I$PREFIX/Library/include -O2"
-        export CXXFLAGS="-MD -I$PREFIX/Library/include -O2 -EHs"
+        export CFLAGS="-MD -I$PREFIX/Library/include -O2 -D_CRT_SECURE_NO_WARNINGS"
+        export CXXFLAGS="-MD -I$PREFIX/Library/include -O2 -EHs -D_CRT_SECURE_NO_WARNINGS"
         export LDFLAGS="$LDFLAGS -L$PREFIX/Library/lib"
         export lt_cv_deplibs_check_method=pass_all
-        export LIBS="-lomp"
+        export LIBS="-llibomp"
         cp $PREFIX/Library/lib/gmp.lib $PREFIX/Library/lib/gmpxx.lib
         ./configure --prefix="$PREFIX/Library" --with-nauty=$PREFIX -with-gmp="$PREFIX/Library" || (cat config.log; false)
-        cat config.log
+        # libtool has support for using either nm or dumpbin, but neither works correctly with C++ mangling schemes
+        # cmake's dll creation tool works, but need to hack libtool to get it working
+        sed -i.bak "s/export_symbols_cmds=/export_symbols_cmds2=/g" libtool
+        sed "s/archive_expsym_cmds=/archive_expsym_cmds2=/g" libtool > libtool2
+        cp $RECIPE_DIR/libtool_patch.sh libtool
+        cat libtool2 > libtool
         ;;
 esac
 
