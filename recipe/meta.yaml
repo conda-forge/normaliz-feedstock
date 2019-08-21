@@ -24,7 +24,7 @@ requirements:
     - {{ compiler('cxx') }}
     - llvm-openmp          # [osx or win]
     - posix                # [win]
-    - clang                # [win]
+    - clangxx              # [win]
     - lld                  # [win]
     - llvm-tools           # [win]
     - m2-automake-wrapper  # [win]
