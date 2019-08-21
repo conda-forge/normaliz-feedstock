@@ -14,8 +14,8 @@ case `uname` in
         ;;
     MINGW*)
         export PATH="$PREFIX/Library/bin:$BUILD_PREFIX/Library/bin:$RECIPE_DIR:$PATH"
-        export CC=cl_wrapper.sh
-        export CXX=cl_wrapper.sh
+        export CC=clang.exe
+        export CXX=clang++.exe
         export RANLIB=llvm-ranlib
         export AS=llvm-as
         export AR=llvm-ar
