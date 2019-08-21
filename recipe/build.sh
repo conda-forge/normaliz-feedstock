@@ -32,7 +32,9 @@ case `uname` in
         # cmake's dll creation tool works, but need to hack libtool to get it working
         sed -i.bak "s/export_symbols_cmds=/export_symbols_cmds2=/g" libtool
         sed "s/archive_expsym_cmds=/archive_expsym_cmds2=/g" libtool > libtool2
-        cp $RECIPE_DIR/libtool_patch.sh libtool
+        echo "#!/bin/bash" > libtool
+        echo "export_symbols_cmds=\"echo \\\$libobjs | \\\$SED 's/ /\n/g'  > \\\$export_symbols.tmp && cmake -E __create_def \\\$export_symbols \\\$export_symbols.tmp\"" >> libtool
+        echo "archive_expsym_cmds=\"\\\$CC -o \\\$tool_output_objdir\\\$soname \\\$libobjs \\\$compiler_flags \\\$deplibs -Wl,-DEF:\\\\\\\"\\\$export_symbols\\\\\\\" -Wl,-DLL,-IMPLIB:\\\\\\\"\\\$tool_output_objdir\\\$libname.dll.lib\\\\\\\"; echo \"" >> libtool
         cat libtool2 >> libtool
         ;;
 esac
