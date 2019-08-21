@@ -55,7 +55,7 @@ test:
     - test -f "$PREFIX/include/libnormaliz/matrix.h"            # [not win]
     - if not exist %LIBRARY_LIB%\\normaliz.lib exit 1         # [win]
     - if not exist %LIBRARY_LIB%\\normaliz_static.lib exit 1  # [win]
-    - if not exist %LIBRARY_INC%\\normaliz\\matrix.h exit 1   # [win]
+    - if not exist %LIBRARY_INC%\\libnormaliz\\matrix.h exit 1   # [win]
 
 about:
   home: https://www.normaliz.uni-osnabrueck.de
