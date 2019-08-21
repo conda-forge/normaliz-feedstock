@@ -22,7 +22,7 @@ case `uname` in
         export LD=lld-link
         export CCCL=clang-cl
         export CFLAGS="-MD -I$PREFIX/Library/include -O2 -D_CRT_SECURE_NO_WARNINGS"
-        export CXXFLAGS="-MD -I$PREFIX/Library/include -O2 -EHs -D_CRT_SECURE_NO_WARNINGS"
+        export CXXFLAGS="-MD -I$PREFIX/Library/include -O2 -D_CRT_SECURE_NO_WARNINGS"
         export LDFLAGS="$LDFLAGS -L$PREFIX/Library/lib"
         export lt_cv_deplibs_check_method=pass_all
         export LIBS="-llibomp"
