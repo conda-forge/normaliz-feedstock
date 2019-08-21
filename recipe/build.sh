@@ -33,7 +33,7 @@ case `uname` in
         sed -i.bak "s/export_symbols_cmds=/export_symbols_cmds2=/g" libtool
         sed "s/archive_expsym_cmds=/archive_expsym_cmds2=/g" libtool > libtool2
         cp $RECIPE_DIR/libtool_patch.sh libtool
-        cat libtool2 > libtool
+        cat libtool2 >> libtool
         ;;
 esac
 
