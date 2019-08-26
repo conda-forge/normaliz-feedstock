@@ -11,8 +11,8 @@ case "$target_platform" in
         ./configure --prefix=$PREFIX --with-e-antic=$PREFIX --with-nauty=$PREFIX --with-flint=$PREFIX --with-gmp=$PREFIX
         ;;
     win*)
-        cp $PREFIX/Library/lib/gmp.lib $PREFIX/Library/lib/gmpxx.lib
-        ./configure --prefix="$PREFIX/Library" --with-nauty=$PREFIX -with-gmp="$PREFIX/Library" || (cat config.log; false)
+        cp $PREFIX/lib/gmp.lib $PREFIX/lib/gmpxx.lib
+        ./configure --prefix="$PREFIX" --with-nauty=$PREFIX -with-gmp="$PREFIX" || (cat config.log; false)
         ;;
 esac
 
@@ -21,5 +21,5 @@ make check -j${CPU_COUNT}
 make install
 
 if [[ "$target_platform" == win* ]]; then
-    rm $PREFIX/Library/lib/gmpxx.lib
+    rm $PREFIX/lib/gmpxx.lib
 fi
