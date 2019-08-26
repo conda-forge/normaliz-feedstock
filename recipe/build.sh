@@ -13,6 +13,7 @@ case "$target_platform" in
     win*)
         cp $PREFIX/lib/gmp.lib $PREFIX/lib/gmpxx.lib
         ./configure --prefix="$PREFIX" --with-nauty=$PREFIX -with-gmp="$PREFIX" || (cat config.log; false)
+        patch_libtool
         ;;
 esac
 
