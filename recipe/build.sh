@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e
+set -x
 
 autoreconf --install
 chmod +x configure
