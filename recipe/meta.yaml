@@ -13,7 +13,7 @@ source:
     - dll.patch
 
 build:
-  number: 2
+  number: 3
   skip: True  # [win and vc<14]
   run_exports:
     - {{ pin_subpackage("normaliz") }}
@@ -23,16 +23,7 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - llvm-openmp          # [osx or win]
-    - posix                # [win]
-    - clang                # [win]
-    - lld                  # [win]
-    - llvm-tools           # [win]
-    - m2-automake-wrapper  # [win]
-    - m2-libtool           # [win]
-    - m2-autoconf          # [win]
-    - m2-make              # [win]
-    - m2-m4                # [win]
-    - cmake                # [win]
+    - autotools_clang_conda  # [win]
     - autoconf             # [not win]
     - automake             # [not win]
     - libtool              # [not win]
