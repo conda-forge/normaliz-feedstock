@@ -8,9 +8,6 @@ package:
 source:
   url: https://github.com/Normaliz/Normaliz/releases/download/v{{ version }}/normaliz-{{ version }}-full.zip
   sha256: 600a75df8988b0da249fae6c7979b59e0ff0113c8996b419faefc21aff2dfef6
-  patches:
-    - gh259.patch
-    - dll.patch
 
 build:
   number: 0
