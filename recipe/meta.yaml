@@ -8,6 +8,8 @@ package:
 source:
   url: https://github.com/Normaliz/Normaliz/releases/download/v{{ version }}/normaliz-{{ version }}-full.zip
   sha256: 89d4551a8d527623768cea2e265200af35b896ab5e70352940769b7408bad3e1
+  patches:
+   - extern-kill.patch
 
 build:
   number: 0
