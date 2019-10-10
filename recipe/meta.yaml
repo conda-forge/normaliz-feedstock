@@ -1,5 +1,5 @@
 {% set name = "normaliz" %}
-{% set version = "3.7.4" %}
+{% set version = "3.8.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,13 +7,12 @@ package:
 
 source:
   url: https://github.com/Normaliz/Normaliz/releases/download/v{{ version }}/normaliz-{{ version }}-full.zip
-  sha256: 48b9c4b76e4c5dcab3c7845e98d889a45869fa14b4ff23cae003e5c617f08b3b
+  sha256: 89d4551a8d527623768cea2e265200af35b896ab5e70352940769b7408bad3e1
   patches:
-    - gh259.patch
-    - dll.patch
+   - extern-kill.patch
 
 build:
-  number: 3
+  number: 0
   skip: True  # [win and vc<14]
   run_exports:
     - {{ pin_subpackage("normaliz") }}
