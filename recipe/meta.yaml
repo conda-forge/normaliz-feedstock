@@ -12,7 +12,7 @@ source:
    - extern-kill.patch
 
 build:
-  number: 0
+  number: 1
   skip: True  # [win and vc<14]
   run_exports:
     - {{ pin_subpackage("normaliz") }}
@@ -33,6 +33,7 @@ requirements:
     - mpir                 # [win]
     - llvm-openmp          # [osx or win]
     - e-antic              # [not win]
+    - libflint             # [not win]
     - nauty
     - pthreads-win32       # [win]
   run:
