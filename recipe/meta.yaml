@@ -33,6 +33,7 @@ requirements:
     - mpir                 # [win]
     - llvm-openmp          # [osx or win]
     - e-antic              # [not win]
+    - arb =2.16            # [not win]
     - libflint             # [not win]
     - arb                  # [not win]
     - nauty
