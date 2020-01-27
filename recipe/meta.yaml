@@ -12,7 +12,7 @@ source:
     - extern-kill.patch
 
 build:
-  number: 2
+  number: 3
   skip: True  # [win and vc<14]
   run_exports:
     - {{ pin_subpackage("normaliz") }}
@@ -33,7 +33,6 @@ requirements:
     - mpir                 # [win]
     - llvm-openmp          # [osx or win]
     - e-antic              # [not win]
-    - arb =2.16            # [not win]
     - libflint             # [not win]
     - arb                  # [not win]
     - nauty
