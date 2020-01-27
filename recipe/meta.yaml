@@ -9,10 +9,10 @@ source:
   url: https://github.com/Normaliz/Normaliz/releases/download/v{{ version }}/normaliz-{{ version }}-full.zip
   sha256: 89d4551a8d527623768cea2e265200af35b896ab5e70352940769b7408bad3e1
   patches:
-   - extern-kill.patch
+    - extern-kill.patch
 
 build:
-  number: 1
+  number: 2
   skip: True  # [win and vc<14]
   run_exports:
     - {{ pin_subpackage("normaliz") }}
@@ -28,13 +28,13 @@ requirements:
     - libtool              # [not win]
     - make                 # [not win]
   host:
-    - libflint             # [not win]
     - boost-cpp
     - gmp                  # [not win]
     - mpir                 # [win]
     - llvm-openmp          # [osx or win]
     - e-antic              # [not win]
     - libflint             # [not win]
+    - arb                  # [not win]
     - nauty
     - pthreads-win32       # [win]
   run:
