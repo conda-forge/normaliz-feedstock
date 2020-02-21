@@ -1,3 +1,5 @@
+BUILD:
+- aarch64-conda_cos7-linux-gnu
 arb:
 - '2.17'
 boost_cpp:
@@ -6,8 +8,12 @@ c_compiler:
 - gcc
 c_compiler_version:
 - '7'
+cdt_arch:
+- aarch64
+cdt_name:
+- cos7
 channel_sources:
-- conda-forge,defaults
+- conda-forge,c4aarch64,defaults
 channel_targets:
 - conda-forge main
 cxx_compiler:
@@ -15,7 +21,7 @@ cxx_compiler:
 cxx_compiler_version:
 - '7'
 docker_image:
-- condaforge/linux-anvil-comp7
+- condaforge/linux-anvil-aarch64
 gmp:
 - '6'
 pin_run_as_build:
