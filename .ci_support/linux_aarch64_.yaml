@@ -3,7 +3,7 @@ BUILD:
 arb:
 - '2.17'
 boost_cpp:
-- 1.70.0
+- '1.72'
 c_compiler:
 - gcc
 c_compiler_version:
@@ -13,7 +13,7 @@ cdt_arch:
 cdt_name:
 - cos7
 channel_sources:
-- conda-forge,c4aarch64,defaults
+- conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
