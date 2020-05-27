@@ -28,7 +28,7 @@ requirements:
     - libtool              # [not win]
     - make                 # [not win]
   host:
-    - boost-cpp
+    - libflint             # [not win]
     - gmp                  # [not win]
     - mpir                 # [win]
     - llvm-openmp          # [osx or win]
