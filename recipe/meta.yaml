@@ -1,18 +1,18 @@
 {% set name = "normaliz" %}
-{% set version = "3.8.1" %}
+{% set version = "3.8.5" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://github.com/Normaliz/Normaliz/releases/download/v{{ version }}/normaliz-{{ version }}-full.zip
-  sha256: 89d4551a8d527623768cea2e265200af35b896ab5e70352940769b7408bad3e1
+  url: https://github.com/Normaliz/Normaliz/releases/download/v{{ version }}/normaliz-{{ version }}.zip
+  sha256: 90fb43efb6300f9634f1fba9c587a1337035dbbee9dfa08aa6d3ce64e8f20dab
   patches:
     - extern-kill.patch
 
 build:
-  number: 4
+  number: 0
   skip: True  # [win and vc<14]
   run_exports:
     - {{ pin_subpackage("normaliz") }}
@@ -28,7 +28,6 @@ requirements:
     - libtool              # [not win]
     - make                 # [not win]
   host:
-    - boost-cpp
     - gmp                  # [not win]
     - mpir                 # [win]
     - llvm-openmp          # [osx or win]
@@ -51,7 +50,7 @@ test:
 
 about:
   home: https://www.normaliz.uni-osnabrueck.de
-  license: GPL-3.0
+  license: GPL-3.0-or-later
   license_family: GPL
   license_file: COPYING
   summary: ' Normaliz is an open source tool for computations in affine monoids, vector configurations, lattice polytopes, and rational cones.'
