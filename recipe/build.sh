@@ -13,6 +13,7 @@ case "$target_platform" in
         ;;
     win*)
         cp $PREFIX/lib/gmp.lib $PREFIX/lib/gmpxx.lib
+        sed -i.bak "s/-Wl,-rpath,/-L/g" configure
         ./configure --prefix="$PREFIX" --with-nauty=$PREFIX --with-gmp="$PREFIX" || (cat config.log; false)
         patch_libtool
         echo $?
@@ -21,7 +22,7 @@ esac
 
 make -j${CPU_COUNT}
 echo $?
-if [[ "$PKG_VERSION" == "3.8.1" ]]; then
+if [[ "$PKG_VERSION" == "3.8.4" ]]; then
   make check -j${CPU_COUNT} || true;
 else
   make check -j${CPU_COUNT}
