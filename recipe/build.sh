@@ -22,7 +22,7 @@ esac
 
 make -j${CPU_COUNT}
 echo $?
-if [[ "$PKG_VERSION" == "3.8.4" ]]; then
+if [[ "$PKG_VERSION" == "3.8.5" ]]; then
   make check -j${CPU_COUNT} || true;
 else
   make check -j${CPU_COUNT}
