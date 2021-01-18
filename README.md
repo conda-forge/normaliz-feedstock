@@ -5,11 +5,11 @@ Home: https://www.normaliz.uni-osnabrueck.de
 
 Package license: GPL-3.0-or-later
 
-Feedstock license: BSD-3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/normaliz-feedstock/blob/master/LICENSE.txt)
 
 Summary:  Normaliz is an open source tool for computations in affine monoids, vector configurations, lattice polytopes, and rational cones.
 
-
+Development: https://github.com/Normaliz/Normaliz
 
 Current build status
 ====================
