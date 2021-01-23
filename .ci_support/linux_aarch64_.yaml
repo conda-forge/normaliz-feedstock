@@ -1,13 +1,11 @@
 BUILD:
 - aarch64-conda_cos7-linux-gnu
 arb:
-- '2.18'
-boost_cpp:
-- 1.70.0
+- '2.19'
 c_compiler:
 - gcc
 c_compiler_version:
-- '7'
+- '9'
 cdt_arch:
 - aarch64
 cdt_name:
@@ -19,13 +17,16 @@ channel_targets:
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '7'
+- '9'
 docker_image:
-- condaforge/linux-anvil-aarch64
+- quay.io/condaforge/linux-anvil-aarch64
 gmp:
 - '6'
 pin_run_as_build:
-  boost-cpp:
-    max_pin: x.x.x
   gmp:
     max_pin: x
+target_platform:
+- linux-aarch64
+zip_keys:
+- - c_compiler_version
+  - cxx_compiler_version
