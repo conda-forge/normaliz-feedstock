@@ -1,15 +1,15 @@
 #!/bin/bash
-# Get an updated config.sub and config.guess
-cp $BUILD_PREFIX/share/gnuconfig/config.* ./cnf
 
 set -e
 set -x
 
-autoreconf --install
+autoreconf -vfi
 chmod +x configure
 
 case "$target_platform" in
     linux*|osx*)
+        # Get an updated config.sub and config.guess
+        cp $BUILD_PREFIX/share/gnuconfig/config.* ./cnf
         export CFLAGS="-O3 -g -fPIC $CFLAGS"
         ./configure --prefix=$PREFIX --with-e-antic=$PREFIX --with-nauty=$PREFIX --with-flint=$PREFIX --with-gmp=$PREFIX
         ;;
@@ -27,10 +27,8 @@ esac
 make -j${CPU_COUNT}
 echo $?
 if [[ "$PKG_VERSION" == "3.8.5" ]]; then
-if [[ "${CONDA_BUILD_CROSS_COMPILATION}" != "1" ]]; then
   make check -j${CPU_COUNT} || true;
-fi
-else
+elif [[ "${CONDA_BUILD_CROSS_COMPILATION}" != "1" ]]; then
   make check -j${CPU_COUNT}
 fi
 make install
