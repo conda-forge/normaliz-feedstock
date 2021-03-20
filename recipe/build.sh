@@ -1,4 +1,6 @@
 #!/bin/bash
+# Get an updated config.sub and config.guess
+cp $BUILD_PREFIX/share/gnuconfig/config.* ./cnf
 
 set -e
 set -x
@@ -25,7 +27,9 @@ esac
 make -j${CPU_COUNT}
 echo $?
 if [[ "$PKG_VERSION" == "3.8.5" ]]; then
+if [[ "${CONDA_BUILD_CROSS_COMPILATION}" != "1" ]]; then
   make check -j${CPU_COUNT} || true;
+fi
 else
   make check -j${CPU_COUNT}
 fi
