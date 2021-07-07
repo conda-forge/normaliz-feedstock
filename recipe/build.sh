@@ -25,7 +25,7 @@ case "$target_platform" in
         sed -i.bak "s/-Wl,-rpath,/-L/g" configure
         # https://github.com/Normaliz/Normaliz/pull/353/files
         echo -e "#include <ctime>\n$(cat source/maxsimplex/maxsimplex.cpp)" > source/maxsimplex/maxsimplex.cpp
-        ./configure --prefix="$PREFIX" --with-nauty=$PREFIX --with-gmp="$PREFIX" || (cat config.log; false)
+        ./configure --prefix="$LIBRARY_PREFIX" --with-nauty=$LIBRARY_PREFIX --with-gmp="$LIBRARY_PREFIX" || (cat config.log; false)
         patch_libtool
         echo $?
         ;;
