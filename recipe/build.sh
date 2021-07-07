@@ -20,8 +20,7 @@ case "$target_platform" in
         ;;
     win*)
         cp $PREFIX/lib/gmp.lib $PREFIX/lib/gmpxx.lib
-        export CFLAGS="$CFLAGS -I${LIBRARY_INC}"
-        export LDFLAGS="$LDFLAGS -L${LIBRARY_LIB}"
+        export CPATH="${LIBRARY_INC}"
         sed -i.bak "s/-Wl,-rpath,/-L/g" configure
         # https://github.com/Normaliz/Normaliz/pull/353/files
         echo -e "#include <ctime>\n$(cat source/maxsimplex/maxsimplex.cpp)" > source/maxsimplex/maxsimplex.cpp
