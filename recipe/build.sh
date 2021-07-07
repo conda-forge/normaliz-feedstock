@@ -11,7 +11,12 @@ case "$target_platform" in
         # Get an updated config.sub and config.guess
         cp $BUILD_PREFIX/share/gnuconfig/config.* ./cnf
         export CFLAGS="-O3 -g -fPIC $CFLAGS"
-        ./configure --prefix=$PREFIX --with-e-antic=$PREFIX --with-nauty=$PREFIX --with-flint=$PREFIX --with-gmp=$PREFIX
+        ./configure \
+            --prefix=$PREFIX \
+            --with-e-antic=$PREFIX \
+            --with-nauty=$PREFIX \
+            --with-flint=$PREFIX \
+            --with-gmp=$PREFIX || (cat config.log; false)
         ;;
     win*)
         cp $PREFIX/lib/gmp.lib $PREFIX/lib/gmpxx.lib
