@@ -1,5 +1,5 @@
 {% set name = "normaliz" %}
-{% set version = "3.8.5" %}
+{% set version = "3.9.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,10 @@ package:
 
 source:
   url: https://github.com/Normaliz/Normaliz/releases/download/v{{ version }}/normaliz-{{ version }}.zip
-  sha256: 90fb43efb6300f9634f1fba9c587a1337035dbbee9dfa08aa6d3ce64e8f20dab
-  patches:
-    - extern-kill.patch
+  sha256: a079433d3dd1c8c70bc907db491917d236dc783d9f7970598238e14f7c885d5f
 
 build:
-  number: 1
+  number: 0
   skip: True  # [win and vc<14]
   run_exports:
     - {{ pin_subpackage("normaliz") }}
@@ -33,6 +31,8 @@ requirements:
     - mpir                 # [win]
     - llvm-openmp          # [osx or win]
     - e-antic              # [not win]
+    # boost is needed for e-antic
+    - boost-cpp            # [not win]
     - libflint             # [not win]
     - arb                  # [not win]
     - nauty

@@ -2,6 +2,8 @@ BUILD:
 - aarch64-conda_cos7-linux-gnu
 arb:
 - '2.19'
+boost_cpp:
+- 1.74.0
 c_compiler:
 - gcc
 c_compiler_version:
@@ -23,6 +25,8 @@ docker_image:
 gmp:
 - '6'
 pin_run_as_build:
+  boost-cpp:
+    max_pin: x.x.x
   gmp:
     max_pin: x
 target_platform:
