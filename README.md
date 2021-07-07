@@ -106,6 +106,7 @@ Installing `normaliz` from the `conda-forge` channel can be achieved by adding `
 
 ```
 conda config --add channels conda-forge
+conda config --set channel_priority strict
 ```
 
 Once the `conda-forge` channel has been enabled, `normaliz` can be installed with:
@@ -186,7 +187,4 @@ Feedstock Maintainers
 
 * [@isuruf](https://github.com/isuruf/)
 * [@saraedum](https://github.com/saraedum/)
-
-
-<!-- dummy commit to enable rerendering -->
 
