@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/Normaliz/Normaliz/releases/download/v{{ version }}/normaliz-{{ version }}.zip
-  sha256: f2faecd8f056fc0f4938e6f739b077d4092f1fc52a761e13fc026e0923417ba6
+  sha256: a079433d3dd1c8c70bc907db491917d236dc783d9f7970598238e14f7c885d5f
 
 build:
   number: 0
