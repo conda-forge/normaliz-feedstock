@@ -27,9 +27,9 @@ esac
 make -j${CPU_COUNT}
 echo $?
 if [[ "$PKG_VERSION" == "3.8.5" ]]; then
-  make check -j${CPU_COUNT} || true;
+  make check -j${CPU_COUNT} -k || true;
 elif [[ "${CONDA_BUILD_CROSS_COMPILATION}" != "1" ]]; then
-  make check -j${CPU_COUNT}
+  make check -j${CPU_COUNT} -k
 fi
 make install
 echo $?
