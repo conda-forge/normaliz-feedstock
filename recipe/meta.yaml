@@ -21,6 +21,7 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - llvm-openmp          # [osx or win]
+    - libgomp              # [linux]
     - autotools_clang_conda  # [win]
     - autoconf             # [not win]
     - automake             # [not win]
@@ -30,7 +31,7 @@ requirements:
     - gmp                  # [not win]
     - mpir                 # [win]
     - llvm-openmp          # [osx or win]
-    - e-antic              # [not win]
+    - libeantic            # [not win]
     - boost-cpp            # [not win]
     - libflint             # [not win]
     - arb                  # [not win]
