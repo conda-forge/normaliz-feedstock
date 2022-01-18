@@ -1,0 +1,25 @@
+From 4ebef50a1b54c54cb5b5bbb09512fdac30d5a35f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Julian=20R=C3=BCth?= <julian.rueth@fsfe.org>
+Date: Mon, 17 Jan 2022 20:14:43 -0600
+Subject: [PATCH] Add missing include statement for omp_set_max_active_levels()
+
+---
+ source/libnormaliz/chunk.cpp | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/source/libnormaliz/chunk.cpp b/source/libnormaliz/chunk.cpp
+index 4fcd8604..3b0045d0 100644
+--- a/source/libnormaliz/chunk.cpp
++++ b/source/libnormaliz/chunk.cpp
+@@ -26,6 +26,8 @@
+ #include <iomanip>
+ #include <iostream>
+ 
++#include <omp.h>
++
+ #include "libnormaliz/chunk.h"
+ #include "libnormaliz/full_cone.h"
+ 
+-- 
+2.34.1
+

@@ -8,6 +8,8 @@ package:
 source:
   url: https://github.com/Normaliz/Normaliz/releases/download/v{{ version }}/normaliz-{{ version }}.zip
   sha256: a5b1225712b7c5d89d1e24e9e0f2234677f0515183b8412b1196f5750d2abe14
+  patches:
+    - omp.patch
 
 build:
   number: 2
@@ -20,25 +22,25 @@ requirements:
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - llvm-openmp          # [osx or win]
-    - libgomp              # [linux]
+    - llvm-openmp            # [osx]
+    - libgomp                # [linux]
     - autotools_clang_conda  # [win]
-    - autoconf             # [not win]
-    - automake             # [not win]
-    - libtool              # [not win]
-    - make                 # [not win]
+    - autoconf               # [not win]
+    - automake               # [not win]
+    - libtool                # [not win]
+    - make                   # [not win]
   host:
-    - gmp                  # [not win]
-    - mpir                 # [win]
-    - llvm-openmp          # [osx or win]
-    - libeantic            # [not win]
-    - boost-cpp            # [not win]
-    - libflint             # [not win]
-    - arb                  # [not win]
+    - gmp                    # [not win]
+    - mpir                   # [win]
+    - llvm-openmp            # [osx or win]
+    - libeantic              # [not win]
+    - boost-cpp              # [not win]
+    - libflint               # [not win]
+    - arb                    # [not win]
     - nauty
-    - pthreads-win32       # [win]
+    - pthreads-win32         # [win]
   run:
-    - llvm-openmp          # [osx or win]
+    - llvm-openmp            # [osx or win]
 
 test:
   commands:
