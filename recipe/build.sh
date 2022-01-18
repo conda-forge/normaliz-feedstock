@@ -16,7 +16,7 @@ case "$target_platform" in
     win*)
         cp $PREFIX/lib/gmp.lib $PREFIX/lib/gmpxx.lib
         sed -i.bak "s/-Wl,-rpath,/-L/g" configure
-		sed -i.bak "s@#include <sys/time.h>@@g" source/libnormaliz/full_cone.h
+        sed -i.bak "s@#include <sys/time.h>@@g" source/libnormaliz/full_cone.h
         ./configure --prefix="$PREFIX" --with-nauty=$PREFIX --with-gmp="$PREFIX" || (cat config.log; false)
         patch_libtool
         echo $?

@@ -10,7 +10,7 @@ source:
   sha256: a5b1225712b7c5d89d1e24e9e0f2234677f0515183b8412b1196f5750d2abe14
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win and vc<14]
   run_exports:
     - {{ pin_subpackage("normaliz") }}
@@ -20,34 +20,34 @@ requirements:
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - llvm-openmp          # [osx or win]
-    - libgomp              # [linux]
+    - llvm-openmp            # [osx or win]
+    - libgomp                # [linux]
     - autotools_clang_conda  # [win]
-    - autoconf             # [not win]
-    - automake             # [not win]
-    - libtool              # [not win]
-    - make                 # [not win]
+    - autoconf               # [not win]
+    - automake               # [not win]
+    - libtool                # [not win]
+    - make                   # [not win]
   host:
-    - gmp                  # [not win]
-    - mpir                 # [win]
-    - llvm-openmp          # [osx or win]
-    - libeantic            # [not win]
-    - boost-cpp            # [not win]
-    - libflint             # [not win]
-    - arb                  # [not win]
+    - gmp                    # [not win]
+    - mpir                   # [win]
+    - llvm-openmp            # [osx or win]
+    - libeantic              # [not win]
+    - boost-cpp              # [not win]
+    - libflint               # [not win]
+    - arb                    # [not win]
     - nauty
-    - pthreads-win32       # [win]
+    - pthreads-win32         # [win]
   run:
-    - llvm-openmp          # [osx or win]
+    - llvm-openmp            # [osx or win]
 
 test:
   commands:
     - test -f "$PREFIX/lib/libnormaliz.a"                       # [not win]
     - test -f "$PREFIX/lib/libnormaliz${SHLIB_EXT}"             # [not win]
     - test -f "$PREFIX/include/libnormaliz/matrix.h"            # [not win]
-    - if not exist %LIBRARY_LIB%\\normaliz.lib exit 1         # [win]
-    - if not exist %LIBRARY_LIB%\\normaliz_static.lib exit 1  # [win]
-    - if not exist %LIBRARY_INC%\\libnormaliz\\matrix.h exit 1   # [win]
+    - if not exist %LIBRARY_LIB%\\normaliz.lib exit 1           # [win]
+    - if not exist %LIBRARY_LIB%\\normaliz_static.lib exit 1    # [win]
+    - if not exist %LIBRARY_INC%\\libnormaliz\\matrix.h exit 1  # [win]
 
 about:
   home: https://www.normaliz.uni-osnabrueck.de
