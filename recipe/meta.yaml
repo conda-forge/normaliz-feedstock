@@ -8,8 +8,6 @@ package:
 source:
   url: https://github.com/Normaliz/Normaliz/releases/download/v{{ version }}/normaliz-{{ version }}.zip
   sha256: a5b1225712b7c5d89d1e24e9e0f2234677f0515183b8412b1196f5750d2abe14
-  patches:
-    - omp.patch
 
 build:
   number: 2
@@ -22,7 +20,7 @@ requirements:
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - llvm-openmp            # [osx]
+    - llvm-openmp            # [osx or win]
     - libgomp                # [linux]
     - autotools_clang_conda  # [win]
     - autoconf               # [not win]
@@ -47,9 +45,9 @@ test:
     - test -f "$PREFIX/lib/libnormaliz.a"                       # [not win]
     - test -f "$PREFIX/lib/libnormaliz${SHLIB_EXT}"             # [not win]
     - test -f "$PREFIX/include/libnormaliz/matrix.h"            # [not win]
-    - if not exist %LIBRARY_LIB%\\normaliz.lib exit 1         # [win]
-    - if not exist %LIBRARY_LIB%\\normaliz_static.lib exit 1  # [win]
-    - if not exist %LIBRARY_INC%\\libnormaliz\\matrix.h exit 1   # [win]
+    - if not exist %LIBRARY_LIB%\\normaliz.lib exit 1           # [win]
+    - if not exist %LIBRARY_LIB%\\normaliz_static.lib exit 1    # [win]
+    - if not exist %LIBRARY_INC%\\libnormaliz\\matrix.h exit 1  # [win]
 
 about:
   home: https://www.normaliz.uni-osnabrueck.de
