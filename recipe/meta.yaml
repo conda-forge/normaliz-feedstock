@@ -10,7 +10,7 @@ source:
   sha256: 63e9036b80ab769e7df5aac02b3a8eded5426460b3e9b76f4da2c9978de69e47
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win and vc<14]
   run_exports:
     - {{ pin_subpackage("normaliz") }}
