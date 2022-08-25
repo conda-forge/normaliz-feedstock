@@ -1,5 +1,5 @@
 {% set name = "normaliz" %}
-{% set version = "3.9.3" %}
+{% set version = "3.9.4" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/Normaliz/Normaliz/releases/download/v{{ version }}/normaliz-{{ version }}.zip
-  sha256: 8d1bd6091911ee5851373405a7b04e675960e1b16e093d7cedb20831f7f6bf0d
+  sha256: abbbcca77c46c28794db60df8e495523697a8012cb27235bf903225ae7d137c2
 
 build:
   number: 0
