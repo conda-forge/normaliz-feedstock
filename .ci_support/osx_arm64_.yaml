@@ -21,7 +21,7 @@ gmp:
 libeantic:
 - '1'
 libflint:
-- '2.8'
+- '2.9'
 llvm_openmp:
 - '14'
 macos_machine:

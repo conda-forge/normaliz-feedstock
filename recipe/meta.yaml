@@ -12,7 +12,7 @@ source:
     - msvc.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win and vc<14]
   run_exports:
     - {{ pin_subpackage("normaliz") }}
