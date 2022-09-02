@@ -16,9 +16,7 @@ case "$target_platform" in
     win*)
         cp $PREFIX/lib/gmp.lib $PREFIX/lib/gmpxx.lib
         sed -i.bak "s/-Wl,-rpath,/-L/g" configure
-        sed -i.bak "s@#include <sys/time.h>@@g" \
-	    source/libnormaliz/full_cone.h \
-	    source/libnormaliz/general.cpp
+        sed -i.bak "s@#include <sys/time.h>@@g" source/libnormaliz/full_cone.h
         sed -i.bak "s@ssize_t@long long@g" \
             source/libnormaliz/matrix.cpp \
             source/libnormaliz/simplex.cpp \
