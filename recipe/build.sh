@@ -17,13 +17,19 @@ case "$target_platform" in
         cp $PREFIX/lib/gmp.lib $PREFIX/lib/gmpxx.lib
         sed -i.bak "s/-Wl,-rpath,/-L/g" configure
         sed -i.bak "s@#include <sys/time.h>@@g" source/libnormaliz/full_cone.h
+        sed -i.bak "s@ssize_t@long long@g" \
+            source/libnormaliz/matrix.cpp \
+            source/libnormaliz/simplex.cpp \
+            source/libnormaliz/face_lattice.cpp \
+            source/libnormaliz/full_cone.cpp
+        unset INCLUDE
         ./configure --prefix="$PREFIX" --with-nauty=$PREFIX --with-gmp="$PREFIX" || (cat config.log; false)
         patch_libtool
         echo $?
         ;;
 esac
 
-make -j${CPU_COUNT}
+make -j${CPU_COUNT} V=1 -k
 echo $?
 if [[ "${CONDA_BUILD_CROSS_COMPILATION}" != "1" ]]; then
   if [[ "$target_platform" = linux-* ]]; then
