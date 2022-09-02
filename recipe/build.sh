@@ -17,6 +17,11 @@ case "$target_platform" in
         cp $PREFIX/lib/gmp.lib $PREFIX/lib/gmpxx.lib
         sed -i.bak "s/-Wl,-rpath,/-L/g" configure
         sed -i.bak "s@#include <sys/time.h>@@g" source/libnormaliz/full_cone.h
+        sed -i.bak "s@ssize_t@long long@g" \
+            source/libnormaliz/matrix.cpp \
+            source/libnormaliz/simplex.cpp \
+            source/libnormaliz/face_lattice.cpp \
+            source/libnormaliz/full_cone.cpp
         export CXXFLAGS="-v $CXXFLAGS"
         unset INCLUDE
         ./configure --prefix="$PREFIX" --with-nauty=$PREFIX --with-gmp="$PREFIX" || (cat config.log; false)
