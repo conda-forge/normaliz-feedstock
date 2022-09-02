@@ -24,7 +24,7 @@ case "$target_platform" in
         ;;
 esac
 
-make -j${CPU_COUNT}
+make -j${CPU_COUNT} V=1 VERBOSE=1
 echo $?
 if [[ "${CONDA_BUILD_CROSS_COMPILATION}" != "1" ]]; then
   if [[ "$target_platform" = linux-* ]]; then
