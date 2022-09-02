@@ -18,7 +18,7 @@ case "$target_platform" in
         sed -i.bak "s/-Wl,-rpath,/-L/g" configure
         sed -i.bak "s@#include <sys/time.h>@@g" source/libnormaliz/full_cone.h
         export CPATH="$LIBRARY_PREFIX\include"
-        export CXXFLAGS="-Wc,-I$LIBRARY_PREFIX\include $CXXFLAGS"
+        export CXXFLAGS="-I${LIBRARY_PREFIX//\\//}/include $CXXFLAGS"
         ./configure --prefix="$PREFIX" --with-nauty=$PREFIX --with-gmp="$PREFIX" || (cat config.log; false)
         patch_libtool
         echo $?
