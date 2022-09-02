@@ -22,7 +22,6 @@ case "$target_platform" in
             source/libnormaliz/simplex.cpp \
             source/libnormaliz/face_lattice.cpp \
             source/libnormaliz/full_cone.cpp
-        export CXXFLAGS="-v $CXXFLAGS"
         unset INCLUDE
         ./configure --prefix="$PREFIX" --with-nauty=$PREFIX --with-gmp="$PREFIX" || (cat config.log; false)
         patch_libtool
