@@ -17,8 +17,7 @@ case "$target_platform" in
         cp $PREFIX/lib/gmp.lib $PREFIX/lib/gmpxx.lib
         sed -i.bak "s/-Wl,-rpath,/-L/g" configure
         sed -i.bak "s@#include <sys/time.h>@@g" source/libnormaliz/full_cone.h
-        export CPATH="$LIBRARY_PREFIX\include"
-        export CXXFLAGS="-I${LIBRARY_PREFIX//\\//}/include -v $CXXFLAGS"
+        export CXXFLAGS="-v $CXXFLAGS"
         unset INCLUDE
         ./configure --prefix="$PREFIX" --with-nauty=$PREFIX --with-gmp="$PREFIX" || (cat config.log; false)
         patch_libtool
