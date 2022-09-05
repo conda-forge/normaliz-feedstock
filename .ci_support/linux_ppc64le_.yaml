@@ -1,5 +1,5 @@
 arb:
-- '2.22'
+- '2.23'
 boost_cpp:
 - 1.74.0
 c_compiler:
