@@ -29,8 +29,6 @@ macos_machine:
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x
-  gmp:
-    max_pin: x
 target_platform:
 - osx-64
 zip_keys:
