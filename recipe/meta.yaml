@@ -1,18 +1,18 @@
 {% set name = "normaliz" %}
-{% set version = "3.9.4" %}
+{% set version = "3.10.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://github.com/Normaliz/Normaliz/releases/download/v{{ version }}/normaliz-{{ version }}.zip
-  sha256: abbbcca77c46c28794db60df8e495523697a8012cb27235bf903225ae7d137c2
+  url: https://github.com/Normaliz/Normaliz/releases/download/{{ version }}/normaliz-{{ version }}.zip
+  sha256: 2caabec3e32b1527eef0c385ec8edec1eb47e9359ab864e40f006000eab10380
   patches:
     - msvc.patch
 
 build:
-  number: 3
+  number: 0
   skip: true  # [win and vc<14]
   run_exports:
     - {{ pin_subpackage("normaliz") }}
