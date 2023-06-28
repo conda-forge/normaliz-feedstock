@@ -7,7 +7,7 @@ boost_cpp:
 c_compiler:
 - clang
 c_compiler_version:
-- '14'
+- '15'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -15,7 +15,7 @@ channel_targets:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '14'
+- '15'
 gmp:
 - '6'
 libeantic:
@@ -23,14 +23,12 @@ libeantic:
 libflint:
 - '2.9'
 llvm_openmp:
-- '14'
+- '15'
 macos_machine:
 - arm64-apple-darwin20.0.0
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x
-  gmp:
-    max_pin: x
 target_platform:
 - osx-arm64
 zip_keys:
