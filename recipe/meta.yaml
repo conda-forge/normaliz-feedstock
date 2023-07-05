@@ -8,8 +8,6 @@ package:
 source:
   url: https://github.com/Normaliz/Normaliz/releases/download/v{{ version }}/normaliz-{{ version }}.zip
   sha256: 6e1e501eae8af3e44153bd8f5ffe056bd6d4ea19d427e46147bfe367ffaf3946
-  patches:
-    - msvc.patch
 
 build:
   number: 0
