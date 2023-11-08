@@ -12,7 +12,7 @@ source:
     - msvc.patch
 
 build:
-  number: 3
+  number: 4
   skip: true  # [win and vc<14]
   run_exports:
     - {{ pin_subpackage("normaliz") }}
@@ -34,7 +34,7 @@ requirements:
     - mpir                   # [win]
     - llvm-openmp            # [osx or win]
     - libeantic              # [not win]
-    - boost-cpp              # [not win]
+    - libboost-headers              # [not win]
     - libflint               # [not win]
     - arb                    # [not win]
     - nauty
