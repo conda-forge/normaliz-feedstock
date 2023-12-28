@@ -1,0 +1,55 @@
+From 30331a0d7c8efff90ca9494d04c9aea4e30cc9f0 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Julian=20R=C3=BCth?= <julian.rueth@fsfe.org>
+Date: Thu, 28 Dec 2023 01:37:49 -0600
+Subject: [PATCH 2/2] Import header for timeval struct on Windows
+
+---
+ source/libnormaliz/binomial.h  | 1 -
+ source/libnormaliz/general.cpp | 4 +---
+ source/libnormaliz/general.h   | 3 +++
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/source/libnormaliz/binomial.h b/source/libnormaliz/binomial.h
+index 64d651e..299faf1 100644
+--- a/source/libnormaliz/binomial.h
++++ b/source/libnormaliz/binomial.h
+@@ -24,7 +24,6 @@
+ #ifndef LATTICE_BINOMIAL_H
+ #define LATTICE_BINOMIAL_H
+ 
+-#include <sys/time.h>
+ #include <string>
+ #include "libnormaliz/matrix.h"
+ 
+diff --git a/source/libnormaliz/general.cpp b/source/libnormaliz/general.cpp
+index 6f578be..bf73895 100644
+--- a/source/libnormaliz/general.cpp
++++ b/source/libnormaliz/general.cpp
+@@ -25,9 +25,7 @@
+ #include <csignal>
+ #include "libnormaliz/general.h"
+ 
+-#ifndef _MSC_VER
+-#include <sys/time.h>
+-#else
++#ifdef _MSC_VER
+ #define WIN32_LEAN_AND_MEAN
+ #include <Windows.h>
+ #include <stdint.h> // portable: uint64_t   MSVC: __int64
+diff --git a/source/libnormaliz/general.h b/source/libnormaliz/general.h
+index b87624f..e7bc565 100644
+--- a/source/libnormaliz/general.h
++++ b/source/libnormaliz/general.h
+@@ -38,6 +38,9 @@
+ #endif
+ 
+ #ifdef _WIN32
++
++#include <winsock.h>
++
+ #if defined(DLL_EXPORT)
+ #define NORMALIZ_DLL_EXPORT __declspec(dllexport)
+ #elif defined(NORMALIZ_USE_DLL) && !defined(NORMALIZ_USE_STATIC)
+-- 
+2.43.0
+
