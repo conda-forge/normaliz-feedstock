@@ -2,12 +2,10 @@ MACOSX_DEPLOYMENT_TARGET:
 - '10.9'
 arb:
 - '2.23'
-boost_cpp:
-- 1.78.0
 c_compiler:
 - clang
 c_compiler_version:
-- '15'
+- '16'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -15,7 +13,7 @@ channel_targets:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '15'
+- '16'
 gmp:
 - '6'
 libeantic:
@@ -23,12 +21,8 @@ libeantic:
 libflint:
 - '2.9'
 llvm_openmp:
-- '15'
-macos_machine:
+- '16'
 - x86_64-apple-darwin13.4.0
-pin_run_as_build:
-  boost-cpp:
-    max_pin: x.x.x
 target_platform:
 - osx-64
 zip_keys:

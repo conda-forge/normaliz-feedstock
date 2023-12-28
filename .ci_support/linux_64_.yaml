@@ -1,7 +1,5 @@
 arb:
 - '2.23'
-boost_cpp:
-- 1.78.0
 c_compiler:
 - gcc
 c_compiler_version:
@@ -24,9 +22,6 @@ libeantic:
 - '1'
 libflint:
 - '2.9'
-pin_run_as_build:
-  boost-cpp:
-    max_pin: x.x.x
 target_platform:
 - linux-64
 zip_keys:
