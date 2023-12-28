@@ -45,7 +45,7 @@ index b87624f..e7bc565 100644
  
  #ifdef _WIN32
 +
-+#include <winsock.h>
++#include <Winsock2.h>
 +
  #if defined(DLL_EXPORT)
  #define NORMALIZ_DLL_EXPORT __declspec(dllexport)
