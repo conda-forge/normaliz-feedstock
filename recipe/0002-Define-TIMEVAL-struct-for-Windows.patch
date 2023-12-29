@@ -1,0 +1,114 @@
+From 2ea3d62c4c5143e0d8b3831e3c965b29ae05d1d0 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Julian=20R=C3=BCth?= <julian.rueth@fsfe.org>
+Date: Thu, 28 Dec 2023 01:37:49 -0600
+Subject: [PATCH 2/3] Define TIMEVAL struct for Windows
+
+---
+ source/libnormaliz/binomial.h  |  1 -
+ source/libnormaliz/general.cpp | 35 ----------------------------------
+ source/libnormaliz/general.h   | 29 ++++++++++++++++++++++++++++
+ 3 files changed, 29 insertions(+), 36 deletions(-)
+
+diff --git a/source/libnormaliz/binomial.h b/source/libnormaliz/binomial.h
+index 64d651e..299faf1 100644
+--- a/source/libnormaliz/binomial.h
++++ b/source/libnormaliz/binomial.h
+@@ -24,7 +24,6 @@
+ #ifndef LATTICE_BINOMIAL_H
+ #define LATTICE_BINOMIAL_H
+ 
+-#include <sys/time.h>
+ #include <string>
+ #include "libnormaliz/matrix.h"
+ 
+diff --git a/source/libnormaliz/general.cpp b/source/libnormaliz/general.cpp
+index 6f578be..b389dac 100644
+--- a/source/libnormaliz/general.cpp
++++ b/source/libnormaliz/general.cpp
+@@ -25,41 +25,6 @@
+ #include <csignal>
+ #include "libnormaliz/general.h"
+ 
+-#ifndef _MSC_VER
+-#include <sys/time.h>
+-#else
+-#define WIN32_LEAN_AND_MEAN
+-#include <Windows.h>
+-#include <stdint.h> // portable: uint64_t   MSVC: __int64
+-
+-// MSVC defines this in winsock2.h!?
+-typedef struct timeval {
+-    long tv_sec;
+-    long tv_usec;
+-} timeval;
+-
+-int gettimeofday(struct timeval * tp, struct timezone * tzp)
+-{
+-    // Note: some broken versions only have 8 trailing zero's, the correct epoch has 9 trailing zero's
+-    // This magic number is the number of 100 nanosecond intervals since January 1, 1601 (UTC)
+-    // until 00:00:00 January 1, 1970
+-    static const uint64_t EPOCH = ((uint64_t) 116444736000000000ULL);
+-
+-    SYSTEMTIME  system_time;
+-    FILETIME    file_time;
+-    uint64_t    time;
+-
+-    GetSystemTime( &system_time );
+-    SystemTimeToFileTime( &system_time, &file_time );
+-    time =  ((uint64_t)file_time.dwLowDateTime )      ;
+-    time += ((uint64_t)file_time.dwHighDateTime) << 32;
+-
+-    tp->tv_sec  = (long) ((time - EPOCH) / 10000000L);
+-    tp->tv_usec = (long) (system_time.wMilliseconds * 1000);
+-    return 0;
+-}
+-#endif
+-
+ namespace libnormaliz {
+ 
+ bool verbose = false;
+diff --git a/source/libnormaliz/general.h b/source/libnormaliz/general.h
+index b87624f..56d9b55 100644
+--- a/source/libnormaliz/general.h
++++ b/source/libnormaliz/general.h
+@@ -53,8 +53,37 @@
+ #include "libnormaliz/version.h"
+ #endif
+ 
++// Do not let Windows headers define min/max macros that confused GMP.
++#define NOMINMAX
++
+ #include "libnormaliz/my_omp.h"
+ 
++#ifdef _WIN32
++#include <stdint.h> // portable: uint64_t   MSVC: __int64
++#include <winsock.h>
++
++static int gettimeofday(struct timeval * tp, struct timezone * tzp)
++{
++    // Note: some broken versions only have 8 trailing zero's, the correct epoch has 9 trailing zero's
++    // This magic number is the number of 100 nanosecond intervals since January 1, 1601 (UTC)
++    // until 00:00:00 January 1, 1970
++    static const uint64_t EPOCH = ((uint64_t) 116444736000000000ULL);
++
++    SYSTEMTIME  system_time;
++    FILETIME    file_time;
++    uint64_t    time;
++
++    GetSystemTime( &system_time );
++    SystemTimeToFileTime( &system_time, &file_time );
++    time =  ((uint64_t)file_time.dwLowDateTime )      ;
++    time += ((uint64_t)file_time.dwHighDateTime) << 32;
++
++    tp->tv_sec  = (long) ((time - EPOCH) / 10000000L);
++    tp->tv_usec = (long) (system_time.wMilliseconds * 1000);
++    return 0;
++}
++#endif
++
+ #ifdef USE_MPIR
+ #include <mpirxx.h>
+ #else  // otherwise use GMP
+-- 
+2.43.0
+
