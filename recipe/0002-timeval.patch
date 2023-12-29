@@ -83,7 +83,7 @@ index b87624f..88af6b3 100644
 +#ifdef _WIN32
 +#include <Windows.h>
 +#include <stdint.h> // portable: uint64_t   MSVC: __int64
-+#include <winsock2.h>
++#include <winsock.h>
 +
 +static int gettimeofday(struct timeval * tp, struct timezone * tzp)
 +{
