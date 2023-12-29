@@ -1,0 +1,28 @@
+From 18e8acd337c7b1a1e21d785e8ae116eead773abd Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Julian=20R=C3=BCth?= <julian.rueth@fsfe.org>
+Date: Fri, 29 Dec 2023 15:24:28 -0600
+Subject: [PATCH] Do not include Windows.h which defines TRUE and FALSE
+
+however, normaliz uses these as variable names :shrug:
+---
+ source/libnormaliz/general.h | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/source/libnormaliz/general.h b/source/libnormaliz/general.h
+index 88af6b3..56d9b55 100644
+--- a/source/libnormaliz/general.h
++++ b/source/libnormaliz/general.h
+@@ -59,9 +59,8 @@
+ #include "libnormaliz/my_omp.h"
+ 
+ #ifdef _WIN32
+-#include <Windows.h>
+ #include <stdint.h> // portable: uint64_t   MSVC: __int64
+-#include <winsock2.h>
++#include <winsock.h>
+ 
+ static int gettimeofday(struct timeval * tp, struct timezone * tzp)
+ {
+-- 
+2.43.0
+

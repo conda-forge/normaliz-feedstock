@@ -11,6 +11,7 @@ source:
   patches:
     - 0001-Do-not-typedef-ssize_t.patch  # [win]
     - 0002-timeval.patch  # [win]
+    - 0003-true-false.patch  # [win]
 
 build:
   number: 0
