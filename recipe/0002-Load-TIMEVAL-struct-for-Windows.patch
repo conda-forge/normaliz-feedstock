@@ -1,4 +1,4 @@
-From d3441cb8f937aabebed289d1122540239d75e46e Mon Sep 17 00:00:00 2001
+From 12d7028cfb5ebef60ca55b14bf4f7f96641fd777 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Julian=20R=C3=BCth?= <julian.rueth@fsfe.org>
 Date: Fri, 29 Dec 2023 18:50:55 -0600
 Subject: [PATCH] timeval fixes
@@ -6,8 +6,8 @@ Subject: [PATCH] timeval fixes
 ---
  source/libnormaliz/binomial.cpp | 30 ++++++++++++++++++++++++++++++
  source/libnormaliz/binomial.h   |  1 -
- source/libnormaliz/general.cpp  | 19 +++++++------------
- 3 files changed, 37 insertions(+), 13 deletions(-)
+ source/libnormaliz/general.cpp  | 22 +++++++++++-----------
+ 3 files changed, 41 insertions(+), 12 deletions(-)
 
 diff --git a/source/libnormaliz/binomial.cpp b/source/libnormaliz/binomial.cpp
 index b9805e2..121f6c3 100644
@@ -63,10 +63,10 @@ index 64d651e..299faf1 100644
  #include "libnormaliz/matrix.h"
  
 diff --git a/source/libnormaliz/general.cpp b/source/libnormaliz/general.cpp
-index 6f578be..5f6d8ee 100644
+index 6f578be..5b35ddc 100644
 --- a/source/libnormaliz/general.cpp
 +++ b/source/libnormaliz/general.cpp
-@@ -25,20 +25,13 @@
+@@ -25,20 +25,18 @@
  #include <csignal>
  #include "libnormaliz/general.h"
  
@@ -79,20 +79,24 @@ index 6f578be..5f6d8ee 100644
 +#define NOMINMAX
  #include <Windows.h>
 -#include <stdint.h> // portable: uint64_t   MSVC: __int64
--
++#include <stdint.h> // portable: uint64_t MSVC: __int64
+ 
 -// MSVC defines this in winsock2.h!?
 -typedef struct timeval {
 -    long tv_sec;
 -    long tv_usec;
 -} timeval;
-+#include <stdint.h> // portable: uint64_t MSVC: __int64
++struct timeval {
++  long tv_sec;
++  long tv_usec;
++};
  
 -int gettimeofday(struct timeval * tp, struct timezone * tzp)
 +static int gettimeofday(struct timeval * tp, struct timezone * tzp)
  {
      // Note: some broken versions only have 8 trailing zero's, the correct epoch has 9 trailing zero's
      // This magic number is the number of 100 nanosecond intervals since January 1, 1601 (UTC)
-@@ -58,6 +51,8 @@ int gettimeofday(struct timeval * tp, struct timezone * tzp)
+@@ -58,6 +56,8 @@ int gettimeofday(struct timeval * tp, struct timezone * tzp)
      tp->tv_usec = (long) (system_time.wMilliseconds * 1000);
      return 0;
  }
