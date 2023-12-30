@@ -1,18 +1,16 @@
-From 50437c46e26ae04657dd06c194a226e60b58256f Mon Sep 17 00:00:00 2001
+From d3441cb8f937aabebed289d1122540239d75e46e Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Julian=20R=C3=BCth?= <julian.rueth@fsfe.org>
-Date: Thu, 28 Dec 2023 01:37:49 -0600
-Subject: [PATCH 2/3] Load TIMEVAL struct for Windows
+Date: Fri, 29 Dec 2023 18:50:55 -0600
+Subject: [PATCH] timeval fixes
 
 ---
- source/libnormaliz/binomial.cpp         | 30 +++++++++++++++++++++++++
- source/libnormaliz/binomial.h           |  1 -
- source/libnormaliz/general.cpp          | 19 ++++++----------
- source/libnormaliz/general.h            |  9 ++++++++
- source/libnormaliz/project_and_lift.cpp |  9 ++++++++
- 5 files changed, 55 insertions(+), 13 deletions(-)
+ source/libnormaliz/binomial.cpp | 30 ++++++++++++++++++++++++++++++
+ source/libnormaliz/binomial.h   |  1 -
+ source/libnormaliz/general.cpp  | 19 +++++++------------
+ 3 files changed, 37 insertions(+), 13 deletions(-)
 
 diff --git a/source/libnormaliz/binomial.cpp b/source/libnormaliz/binomial.cpp
-index b9805e2..ad2d7d1 100644
+index b9805e2..121f6c3 100644
 --- a/source/libnormaliz/binomial.cpp
 +++ b/source/libnormaliz/binomial.cpp
 @@ -23,6 +23,36 @@
@@ -20,10 +18,10 @@ index b9805e2..ad2d7d1 100644
  #include "libnormaliz/binomial.h"
  
 +#ifdef _WIN32
-+// Do not let Windows headers define min/max macros that confused GMP.
++// Do not let Windows headers define min/max macros that clash with GMP.
 +#define NOMINMAX
-+#include <stdint.h> // portable: uint64_t   MSVC: __int64
-+#include <winsock.h>
++#include <Windows.h>
++#include <stdint.h> // portable: uint64_t MSVC: __int64
 +
 +static int gettimeofday(struct timeval * tp, struct timezone * tzp)
 +{
@@ -65,7 +63,7 @@ index 64d651e..299faf1 100644
  #include "libnormaliz/matrix.h"
  
 diff --git a/source/libnormaliz/general.cpp b/source/libnormaliz/general.cpp
-index 6f578be..2e1c048 100644
+index 6f578be..5f6d8ee 100644
 --- a/source/libnormaliz/general.cpp
 +++ b/source/libnormaliz/general.cpp
 @@ -25,20 +25,13 @@
@@ -76,19 +74,19 @@ index 6f578be..2e1c048 100644
 -#include <sys/time.h>
 -#else
 -#define WIN32_LEAN_AND_MEAN
--#include <Windows.h>
 +#ifdef _WIN32
-+// Do not let Windows headers define min/max macros that confused GMP.
++// Do not let Windows headers define min/max macros that clash with GMP.
 +#define NOMINMAX
- #include <stdint.h> // portable: uint64_t   MSVC: __int64
-+#include <winsock.h>
- 
+ #include <Windows.h>
+-#include <stdint.h> // portable: uint64_t   MSVC: __int64
+-
 -// MSVC defines this in winsock2.h!?
 -typedef struct timeval {
 -    long tv_sec;
 -    long tv_usec;
 -} timeval;
--
++#include <stdint.h> // portable: uint64_t MSVC: __int64
+ 
 -int gettimeofday(struct timeval * tp, struct timezone * tzp)
 +static int gettimeofday(struct timeval * tp, struct timezone * tzp)
  {
@@ -103,46 +101,6 @@ index 6f578be..2e1c048 100644
  #endif
  
  namespace libnormaliz {
-diff --git a/source/libnormaliz/general.h b/source/libnormaliz/general.h
-index b87624f..622dc06 100644
---- a/source/libnormaliz/general.h
-+++ b/source/libnormaliz/general.h
-@@ -31,6 +31,15 @@
- #include <string>
- #include <vector>
- 
-+#ifdef _WIN32
-+// Do not let Windows headers define min/max macros that confused GMP.
-+#define NOMINMAX
-+#include <stdint.h> // portable: uint64_t   MSVC: __int64
-+#include <winsock.h>
-+#else
-+#include <sys/time.h>
-+#endif
-+
- #include <libnormaliz/dynamic_bitset.h>
- 
- #ifndef NMZ_MAKEFILE_CLASSIC
-diff --git a/source/libnormaliz/project_and_lift.cpp b/source/libnormaliz/project_and_lift.cpp
-index 108e321..579708a 100644
---- a/source/libnormaliz/project_and_lift.cpp
-+++ b/source/libnormaliz/project_and_lift.cpp
-@@ -26,6 +26,15 @@
- #include "libnormaliz/sublattice_representation.h"
- #include "libnormaliz/cone.h"
- 
-+#ifdef _WIN32
-+// Do not let Windows headers define min/max macros that confused GMP.
-+#define NOMINMAX
-+#include <stdint.h> // portable: uint64_t   MSVC: __int64
-+#include <winsock.h>
-+#else
-+#include <sys/time.h>
-+#endif
-+
- namespace libnormaliz {
- using std::vector;
- using std::string;
 -- 
 2.43.0
 

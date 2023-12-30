@@ -1,4 +1,4 @@
-From 39b78c232ff674ee9795665993d71a3b64c5d89d Mon Sep 17 00:00:00 2001
+From d34026fb67e2dc17a16fffcfff159d33f17ff316 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Julian=20R=C3=BCth?= <julian.rueth@fsfe.org>
 Date: Fri, 29 Dec 2023 15:24:28 -0600
 Subject: [PATCH 3/3] Do not use TRUE as a variable name
