@@ -1,13 +1,14 @@
-From 12d7028cfb5ebef60ca55b14bf4f7f96641fd777 Mon Sep 17 00:00:00 2001
+From 9bb82afa61fc39edb932ac75edf50c519404467e Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Julian=20R=C3=BCth?= <julian.rueth@fsfe.org>
 Date: Fri, 29 Dec 2023 18:50:55 -0600
-Subject: [PATCH] timeval fixes
+Subject: [PATCH] Fix declarations of timeval
 
+and massage windows header loading so that there are no clashes
 ---
  source/libnormaliz/binomial.cpp | 30 ++++++++++++++++++++++++++++++
  source/libnormaliz/binomial.h   |  1 -
- source/libnormaliz/general.cpp  | 22 +++++++++++-----------
- 3 files changed, 41 insertions(+), 12 deletions(-)
+ source/libnormaliz/general.cpp  | 22 +++++++++-------------
+ 3 files changed, 39 insertions(+), 14 deletions(-)
 
 diff --git a/source/libnormaliz/binomial.cpp b/source/libnormaliz/binomial.cpp
 index b9805e2..121f6c3 100644
@@ -63,12 +64,14 @@ index 64d651e..299faf1 100644
  #include "libnormaliz/matrix.h"
  
 diff --git a/source/libnormaliz/general.cpp b/source/libnormaliz/general.cpp
-index 6f578be..5b35ddc 100644
+index 6f578be..38ea571 100644
 --- a/source/libnormaliz/general.cpp
 +++ b/source/libnormaliz/general.cpp
-@@ -25,20 +25,18 @@
+@@ -23,22 +23,14 @@
+ 
+ #include <cstdlib>
  #include <csignal>
- #include "libnormaliz/general.h"
+-#include "libnormaliz/general.h"
  
 -#ifndef _MSC_VER
 -#include <sys/time.h>
@@ -79,24 +82,20 @@ index 6f578be..5b35ddc 100644
 +#define NOMINMAX
  #include <Windows.h>
 -#include <stdint.h> // portable: uint64_t   MSVC: __int64
-+#include <stdint.h> // portable: uint64_t MSVC: __int64
- 
+-
 -// MSVC defines this in winsock2.h!?
 -typedef struct timeval {
 -    long tv_sec;
 -    long tv_usec;
 -} timeval;
-+struct timeval {
-+  long tv_sec;
-+  long tv_usec;
-+};
++#include <stdint.h> // portable: uint64_t MSVC: __int64
  
 -int gettimeofday(struct timeval * tp, struct timezone * tzp)
 +static int gettimeofday(struct timeval * tp, struct timezone * tzp)
  {
      // Note: some broken versions only have 8 trailing zero's, the correct epoch has 9 trailing zero's
      // This magic number is the number of 100 nanosecond intervals since January 1, 1601 (UTC)
-@@ -58,6 +56,8 @@ int gettimeofday(struct timeval * tp, struct timezone * tzp)
+@@ -58,8 +50,12 @@ int gettimeofday(struct timeval * tp, struct timezone * tzp)
      tp->tv_usec = (long) (system_time.wMilliseconds * 1000);
      return 0;
  }
@@ -104,7 +103,11 @@ index 6f578be..5b35ddc 100644
 +#include <sys/time.h>
  #endif
  
++#include "libnormaliz/general.h"
++
  namespace libnormaliz {
+ 
+ bool verbose = false;
 -- 
 2.43.0
 
