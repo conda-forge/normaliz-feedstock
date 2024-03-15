@@ -21,7 +21,7 @@ gmp:
 libeantic:
 - '1'
 libflint:
-- '2.9'
+- '3.0'
 target_platform:
 - linux-64
 zip_keys:
