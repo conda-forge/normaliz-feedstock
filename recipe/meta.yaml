@@ -39,7 +39,7 @@ requirements:
     - mpir                   # [win]
     - llvm-openmp            # [osx or win]
     - libeantic              # [not win]
-    - libboost-headers              # [not win]
+    - libboost-headers       # [not win]
     - libflint               # [not win]
     - nauty
     - pthreads-win32         # [win]
