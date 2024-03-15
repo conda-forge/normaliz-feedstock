@@ -41,7 +41,6 @@ requirements:
     - libeantic              # [not win]
     - libboost-headers              # [not win]
     - libflint               # [not win]
-    - arb                    # [not win]
     - nauty
     - pthreads-win32         # [win]
   run:
