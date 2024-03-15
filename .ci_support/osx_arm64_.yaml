@@ -17,7 +17,7 @@ cxx_compiler_version:
 gmp:
 - '6'
 libeantic:
-- '1'
+- '2'
 libflint:
 - '2.9'
 llvm_openmp:
