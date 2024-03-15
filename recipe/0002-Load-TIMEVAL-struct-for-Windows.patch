@@ -1,4 +1,4 @@
-From 5f58f877937a4057794316eb35ef49d5c33ba641 Mon Sep 17 00:00:00 2001
+From 3ff15238c9eaa70af0917112ce536f1fb8d19b50 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Julian=20R=C3=BCth?= <julian.rueth@fsfe.org>
 Date: Fri, 29 Dec 2023 18:50:55 -0600
 Subject: [PATCH 2/3] Fix declarations of timeval
@@ -7,9 +7,9 @@ and massage windows header loading so that there are no clashes
 ---
  source/libnormaliz/binomial.cpp | 30 ++++++++++++++++++++++++++++++
  source/libnormaliz/binomial.h   |  1 -
- source/libnormaliz/general.cpp  |  4 ++--
- source/libnormaliz/general.h    | 12 ++----------
- 4 files changed, 34 insertions(+), 13 deletions(-)
+ source/libnormaliz/general.cpp  |  8 ++++++--
+ source/libnormaliz/general.h    | 14 --------------
+ 4 files changed, 36 insertions(+), 17 deletions(-)
 
 diff --git a/source/libnormaliz/binomial.cpp b/source/libnormaliz/binomial.cpp
 index b9805e21..121f6c3e 100644
@@ -65,25 +65,29 @@ index 64d651e3..299faf18 100644
  #include "libnormaliz/matrix.h"
  
 diff --git a/source/libnormaliz/general.cpp b/source/libnormaliz/general.cpp
-index 7d2dfd05..d9f96e07 100644
+index 7d2dfd05..04d780e4 100644
 --- a/source/libnormaliz/general.cpp
 +++ b/source/libnormaliz/general.cpp
-@@ -26,8 +26,8 @@
+@@ -26,8 +26,12 @@
  #include "libnormaliz/general.h"
  #include <fstream>
  
 -#ifdef _MSC_VER
 -int gettimeofday(struct timeval * tp, struct timezone * tzp)
 +#ifdef _WIN32
++#define NOMINMAX
++#include <Windows.h>
++#include <stdint.h> // portable: uint64_t   MSVC: __int64
++
 +static int gettimeofday(struct timeval * tp, struct timezone * tzp)
  {
      // Note: some broken versions only have 8 trailing zero's, the correct epoch has 9 trailing zero's
      // This magic number is the number of 100 nanosecond intervals since January 1, 1601 (UTC)
 diff --git a/source/libnormaliz/general.h b/source/libnormaliz/general.h
-index 1590a161..39a737b7 100644
+index 1590a161..7be9f03a 100644
 --- a/source/libnormaliz/general.h
 +++ b/source/libnormaliz/general.h
-@@ -31,18 +31,10 @@
+@@ -31,20 +31,6 @@
  #include <string>
  #include <vector>
  
@@ -91,19 +95,19 @@ index 1590a161..39a737b7 100644
 -#include <sys/time.h>
 -#else
 -#define WIN32_LEAN_AND_MEAN
-+#ifdef _WIN32
-+#define NOMINMAX
- #include <Windows.h>
- #include <stdint.h> // portable: uint64_t   MSVC: __int64
+-#include <Windows.h>
+-#include <stdint.h> // portable: uint64_t   MSVC: __int64
 -
 -// MSVC defines this in winsock2.h!?
 -typedef struct timeval {
 -    long tv_sec;
 -    long tv_usec;
 -} timeval;
- #endif
- 
+-#endif
+-
  #include <libnormaliz/dynamic_bitset.h>
+ 
+ #ifndef NMZ_MAKEFILE_CLASSIC
 -- 
 2.44.0
 
