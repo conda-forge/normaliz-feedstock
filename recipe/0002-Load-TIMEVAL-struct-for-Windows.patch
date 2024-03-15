@@ -1,17 +1,18 @@
-From 9bb82afa61fc39edb932ac75edf50c519404467e Mon Sep 17 00:00:00 2001
+From 5f58f877937a4057794316eb35ef49d5c33ba641 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Julian=20R=C3=BCth?= <julian.rueth@fsfe.org>
 Date: Fri, 29 Dec 2023 18:50:55 -0600
-Subject: [PATCH] Fix declarations of timeval
+Subject: [PATCH 2/3] Fix declarations of timeval
 
 and massage windows header loading so that there are no clashes
 ---
  source/libnormaliz/binomial.cpp | 30 ++++++++++++++++++++++++++++++
  source/libnormaliz/binomial.h   |  1 -
- source/libnormaliz/general.cpp  | 22 +++++++++-------------
- 3 files changed, 39 insertions(+), 14 deletions(-)
+ source/libnormaliz/general.cpp  |  4 ++--
+ source/libnormaliz/general.h    | 12 ++----------
+ 4 files changed, 34 insertions(+), 13 deletions(-)
 
 diff --git a/source/libnormaliz/binomial.cpp b/source/libnormaliz/binomial.cpp
-index b9805e2..121f6c3 100644
+index b9805e21..121f6c3e 100644
 --- a/source/libnormaliz/binomial.cpp
 +++ b/source/libnormaliz/binomial.cpp
 @@ -23,6 +23,36 @@
@@ -52,7 +53,7 @@ index b9805e2..121f6c3 100644
  using std::endl;
  using std::string;
 diff --git a/source/libnormaliz/binomial.h b/source/libnormaliz/binomial.h
-index 64d651e..299faf1 100644
+index 64d651e3..299faf18 100644
 --- a/source/libnormaliz/binomial.h
 +++ b/source/libnormaliz/binomial.h
 @@ -24,7 +24,6 @@
@@ -64,50 +65,45 @@ index 64d651e..299faf1 100644
  #include "libnormaliz/matrix.h"
  
 diff --git a/source/libnormaliz/general.cpp b/source/libnormaliz/general.cpp
-index 6f578be..38ea571 100644
+index 7d2dfd05..d9f96e07 100644
 --- a/source/libnormaliz/general.cpp
 +++ b/source/libnormaliz/general.cpp
-@@ -23,22 +23,14 @@
+@@ -26,8 +26,8 @@
+ #include "libnormaliz/general.h"
+ #include <fstream>
  
- #include <cstdlib>
- #include <csignal>
--#include "libnormaliz/general.h"
+-#ifdef _MSC_VER
+-int gettimeofday(struct timeval * tp, struct timezone * tzp)
++#ifdef _WIN32
++static int gettimeofday(struct timeval * tp, struct timezone * tzp)
+ {
+     // Note: some broken versions only have 8 trailing zero's, the correct epoch has 9 trailing zero's
+     // This magic number is the number of 100 nanosecond intervals since January 1, 1601 (UTC)
+diff --git a/source/libnormaliz/general.h b/source/libnormaliz/general.h
+index 1590a161..39a737b7 100644
+--- a/source/libnormaliz/general.h
++++ b/source/libnormaliz/general.h
+@@ -31,18 +31,10 @@
+ #include <string>
+ #include <vector>
  
 -#ifndef _MSC_VER
 -#include <sys/time.h>
 -#else
 -#define WIN32_LEAN_AND_MEAN
 +#ifdef _WIN32
-+// Do not let Windows headers define min/max macros that clash with GMP.
 +#define NOMINMAX
  #include <Windows.h>
--#include <stdint.h> // portable: uint64_t   MSVC: __int64
+ #include <stdint.h> // portable: uint64_t   MSVC: __int64
 -
 -// MSVC defines this in winsock2.h!?
 -typedef struct timeval {
 -    long tv_sec;
 -    long tv_usec;
 -} timeval;
-+#include <stdint.h> // portable: uint64_t MSVC: __int64
- 
--int gettimeofday(struct timeval * tp, struct timezone * tzp)
-+static int gettimeofday(struct timeval * tp, struct timezone * tzp)
- {
-     // Note: some broken versions only have 8 trailing zero's, the correct epoch has 9 trailing zero's
-     // This magic number is the number of 100 nanosecond intervals since January 1, 1601 (UTC)
-@@ -58,8 +50,12 @@ int gettimeofday(struct timeval * tp, struct timezone * tzp)
-     tp->tv_usec = (long) (system_time.wMilliseconds * 1000);
-     return 0;
- }
-+#else
-+#include <sys/time.h>
  #endif
  
-+#include "libnormaliz/general.h"
-+
- namespace libnormaliz {
- 
- bool verbose = false;
+ #include <libnormaliz/dynamic_bitset.h>
 -- 
-2.43.0
+2.44.0
 

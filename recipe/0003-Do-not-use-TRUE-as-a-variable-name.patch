@@ -1,4 +1,4 @@
-From d34026fb67e2dc17a16fffcfff159d33f17ff316 Mon Sep 17 00:00:00 2001
+From f2ac4199e2704afce7483c11ad8b2744e2029533 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Julian=20R=C3=BCth?= <julian.rueth@fsfe.org>
 Date: Fri, 29 Dec 2023 15:24:28 -0600
 Subject: [PATCH 3/3] Do not use TRUE as a variable name
@@ -9,10 +9,10 @@ because Windows defines it to be true.
  1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/source/libnormaliz/project_and_lift.cpp b/source/libnormaliz/project_and_lift.cpp
-index 579708a..590b530 100644
+index 98a236be..deff93f1 100644
 --- a/source/libnormaliz/project_and_lift.cpp
 +++ b/source/libnormaliz/project_and_lift.cpp
-@@ -1905,10 +1905,10 @@ void ProjectAndLift<IntegerPL, IntegerRet>::compute_projections(size_t dim,
+@@ -2214,10 +2214,10 @@ void ProjectAndLift<IntegerPL, IntegerRet>::compute_projections(size_t dim,
      vector<dynamic_bitset> NewPair;        // for the incidence vectors of the new hyperplanes
      vector<dynamic_bitset> NewParaInPair;  // for the incidence vectors of the new hyperplanes
  
@@ -26,7 +26,7 @@ index 579708a..590b530 100644
      }
  
      vector<bool> IsEquation(Supps.nr_of_rows());
-@@ -1918,7 +1918,7 @@ void ProjectAndLift<IntegerPL, IntegerRet>::compute_projections(size_t dim,
+@@ -2227,7 +2227,7 @@ void ProjectAndLift<IntegerPL, IntegerRet>::compute_projections(size_t dim,
      size_t NegEquAt = 0;
  
      for (size_t i = 0; i < Supps.nr_of_rows(); ++i) {
@@ -35,7 +35,7 @@ index 579708a..590b530 100644
              IsEquation[i] = true;
  
          if (Supps[i][dim1] == 0) {  // already independent of last coordinate
-@@ -2027,7 +2027,7 @@ void ProjectAndLift<IntegerPL, IntegerRet>::compute_projections(size_t dim,
+@@ -2336,7 +2336,7 @@ void ProjectAndLift<IntegerPL, IntegerRet>::compute_projections(size_t dim,
  
                      // // to give a facet of the extended cone
                      // match incidence vectors
@@ -44,7 +44,7 @@ index 579708a..590b530 100644
                      size_t nr_match = 0;
                      vector<key_t> CommonKey;
                      for (unsigned int k : PosKey)
-@@ -2066,7 +2066,7 @@ void ProjectAndLift<IntegerPL, IntegerRet>::compute_projections(size_t dim,
+@@ -2375,7 +2375,7 @@ void ProjectAndLift<IntegerPL, IntegerRet>::compute_projections(size_t dim,
                      if (is_zero)  // linear combination is 0
                          continue;
  
@@ -53,7 +53,7 @@ index 579708a..590b530 100644
  #pragma omp critical(NEWEQ)
                          EqusProj.append(new_supp);
                          continue;
-@@ -2213,7 +2213,7 @@ void ProjectAndLift<IntegerPL, IntegerRet>::compute_projections(size_t dim,
+@@ -2522,7 +2522,7 @@ void ProjectAndLift<IntegerPL, IntegerRet>::compute_projections(size_t dim,
      AllNrEqus[dim1] = EqusProj.nr_of_rows();
      // We must add indicator vectors for the equations
      for (size_t i = 0; i < 2 * EqusProj.nr_of_rows(); ++i)
@@ -63,5 +63,5 @@ index 579708a..590b530 100644
      if (dim1 > 1 && !only_projections)
          AllOrders[dim1] = order_supps(SuppsProj);
 -- 
-2.43.0
+2.44.0
 
