@@ -27,7 +27,7 @@ index 7060feb..0134af0 100644
 -typedef long long ssize_t;
 -#endif
 -
- namespace libnormaliz {
+ namespace libnormaliz{
  
  using namespace std;
 diff --git a/source/libnormaliz/full_cone.cpp b/source/libnormaliz/full_cone.cpp
