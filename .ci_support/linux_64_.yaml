@@ -19,9 +19,9 @@ docker_image:
 gmp:
 - '6'
 libeantic:
-- '1'
+- '2'
 libflint:
-- '2.9'
+- '3.0'
 target_platform:
 - linux-64
 zip_keys:
