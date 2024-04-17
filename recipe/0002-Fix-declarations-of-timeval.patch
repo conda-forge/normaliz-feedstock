@@ -1,14 +1,15 @@
-From 2ec6bceaf3848c3b067f656c708dfbf15a88b127 Mon Sep 17 00:00:00 2001
+From ce08223a80354c8efa5ae0da0853305acfc0a2a2 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Julian=20R=C3=BCth?= <julian.rueth@fsfe.org>
 Date: Fri, 29 Dec 2023 18:50:55 -0600
 Subject: [PATCH 2/3] Fix declarations of timeval
 
 and massage windows header loading so that there are no clashes
 ---
- source/libnormaliz/binomial.h  |  1 -
- source/libnormaliz/general.cpp |  8 +++++--
- source/libnormaliz/general.h   | 38 ++++++++++++++++++++++++----------
- 3 files changed, 33 insertions(+), 14 deletions(-)
+ source/libnormaliz/binomial.h    |  1 -
+ source/libnormaliz/general.cpp   | 23 ------------------
+ source/libnormaliz/general.h     | 40 +++++++++++++++++++++++---------
+ source/libnormaliz/nmz_nauty.cpp |  1 +
+ 4 files changed, 30 insertions(+), 35 deletions(-)
 
 diff --git a/source/libnormaliz/binomial.h b/source/libnormaliz/binomial.h
 index 64d651e3..299faf18 100644
@@ -23,47 +24,54 @@ index 64d651e3..299faf18 100644
  #include "libnormaliz/matrix.h"
  
 diff --git a/source/libnormaliz/general.cpp b/source/libnormaliz/general.cpp
-index 7d2dfd05..04d780e4 100644
+index 7d2dfd05..65ec2a3a 100644
 --- a/source/libnormaliz/general.cpp
 +++ b/source/libnormaliz/general.cpp
-@@ -26,8 +26,12 @@
+@@ -26,29 +26,6 @@
  #include "libnormaliz/general.h"
  #include <fstream>
  
 -#ifdef _MSC_VER
 -int gettimeofday(struct timeval * tp, struct timezone * tzp)
-+#ifdef _WIN32
-+#define NOMINMAX
-+#include <Windows.h>
-+#include <stdint.h> // portable: uint64_t   MSVC: __int64
-+
-+static int gettimeofday(struct timeval * tp, struct timezone * tzp)
- {
-     // Note: some broken versions only have 8 trailing zero's, the correct epoch has 9 trailing zero's
-     // This magic number is the number of 100 nanosecond intervals since January 1, 1601 (UTC)
+-{
+-    // Note: some broken versions only have 8 trailing zero's, the correct epoch has 9 trailing zero's
+-    // This magic number is the number of 100 nanosecond intervals since January 1, 1601 (UTC)
+-    // until 00:00:00 January 1, 1970
+-    static const uint64_t EPOCH = ((uint64_t) 116444736000000000ULL);
+-
+-    SYSTEMTIME  system_time;
+-    FILETIME    file_time;
+-    uint64_t    time;
+-
+-    GetSystemTime( &system_time );
+-    SystemTimeToFileTime( &system_time, &file_time );
+-    time =  ((uint64_t)file_time.dwLowDateTime )      ;
+-    time += ((uint64_t)file_time.dwHighDateTime) << 32;
+-
+-    tp->tv_sec  = (long) ((time - EPOCH) / 10000000L);
+-    tp->tv_usec = (long) (system_time.wMilliseconds * 1000);
+-    return 0;
+-}
+-#endif
+-
+ namespace libnormaliz {
+ 
+ bool verbose = false;
 diff --git a/source/libnormaliz/general.h b/source/libnormaliz/general.h
-index 1590a161..ea20ac6c 100644
+index 1590a161..d2745c0b 100644
 --- a/source/libnormaliz/general.h
 +++ b/source/libnormaliz/general.h
-@@ -31,18 +31,34 @@
+@@ -31,18 +31,36 @@
  #include <string>
  #include <vector>
  
 -#ifndef _MSC_VER
 -#include <sys/time.h>
--#else
--#define WIN32_LEAN_AND_MEAN
++#ifndef NAUTY_DEFINES_BOOLEAN
 +#ifdef _WIN32
 +// Do not let Windows headers define min/max macros that clash with GMP.
 +#define NOMINMAX
- #include <Windows.h>
--#include <stdint.h> // portable: uint64_t   MSVC: __int64
--
--// MSVC defines this in winsock2.h!?
--typedef struct timeval {
--    long tv_sec;
--    long tv_usec;
--} timeval;
++#include <Windows.h> // this defines boolean as int (which clashes with nauty which defines it to be unsigned char)
 +#include <stdint.h> // portable: uint64_t MSVC: __int64
 +
 +static int gettimeofday(struct timeval * tp, struct timezone * tzp)
@@ -86,11 +94,33 @@ index 1590a161..ea20ac6c 100644
 +    tp->tv_usec = (long) (system_time.wMilliseconds * 1000);
 +    return 0;
 +}
-+#else
+ #else
+-#define WIN32_LEAN_AND_MEAN
+-#include <Windows.h>
+-#include <stdint.h> // portable: uint64_t   MSVC: __int64
+-
+-// MSVC defines this in winsock2.h!?
+-typedef struct timeval {
+-    long tv_sec;
+-    long tv_usec;
+-} timeval;
 +#include <sys/time.h>
++#endif
  #endif
  
  #include <libnormaliz/dynamic_bitset.h>
+diff --git a/source/libnormaliz/nmz_nauty.cpp b/source/libnormaliz/nmz_nauty.cpp
+index 00daccc7..ac2715b8 100644
+--- a/source/libnormaliz/nmz_nauty.cpp
++++ b/source/libnormaliz/nmz_nauty.cpp
+@@ -25,6 +25,7 @@
+ 
+ #include <map>
+ 
++#define NAUTY_DEFINES_BOOLEAN
+ #include "libnormaliz/integer.h"
+ #include "libnormaliz/matrix.h"
+ #include "libnormaliz/nmz_nauty.h"
 -- 
 2.44.0
 
