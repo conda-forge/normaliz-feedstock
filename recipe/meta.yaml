@@ -10,7 +10,7 @@ source:
   sha256: e553c03b43e414b874d859f8fc0569505b1e8daf61fa98e19e0877ea6714a29c
   patches:
     - 0001-Do-not-typedef-ssize_t.patch  # [win]
-    - 0002-Load-TIMEVAL-struct-for-Windows.patch  # [win]
+    - 0002-Fix-declarations-of-timeval.patch  # [win]
     - 0003-Do-not-use-TRUE-as-a-variable-name.patch  # [win]
 
 build:
