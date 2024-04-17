@@ -1,11 +1,13 @@
 MACOSX_DEPLOYMENT_TARGET:
 - '10.9'
-arb:
-- '2.23'
 c_compiler:
 - clang
 c_compiler_version:
 - '16'
+c_stdlib:
+- macosx_deployment_target
+c_stdlib_version:
+- '10.9'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -17,9 +19,9 @@ cxx_compiler_version:
 gmp:
 - '6'
 libeantic:
-- '1'
+- '2'
 libflint:
-- '2.9'
+- '3.0'
 llvm_openmp:
 - '16'
 macos_machine:

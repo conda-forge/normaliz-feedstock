@@ -1,5 +1,5 @@
 {% set name = "normaliz" %}
-{% set version = "3.10.1" %}
+{% set version = "3.10.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,14 +7,14 @@ package:
 
 source:
   url: https://github.com/Normaliz/Normaliz/releases/download/v{{ version }}/normaliz-{{ version }}.zip
-  sha256: 6e1e501eae8af3e44153bd8f5ffe056bd6d4ea19d427e46147bfe367ffaf3946
+  sha256: e553c03b43e414b874d859f8fc0569505b1e8daf61fa98e19e0877ea6714a29c
   patches:
     - 0001-Do-not-typedef-ssize_t.patch  # [win]
-    - 0002-Load-TIMEVAL-struct-for-Windows.patch  # [win]
+    - 0002-Fix-declarations-of-timeval.patch  # [win]
     - 0003-Do-not-use-TRUE-as-a-variable-name.patch  # [win]
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win and vc<14]
   run_exports:
     # Normaliz has a history of breaking ABI changes in patch releases, so we
@@ -39,9 +39,8 @@ requirements:
     - mpir                   # [win]
     - llvm-openmp            # [osx or win]
     - libeantic              # [not win]
-    - libboost-headers              # [not win]
+    - libboost-headers       # [not win]
     - libflint               # [not win]
-    - arb                    # [not win]
     - nauty
     - pthreads-win32         # [win]
   run:
