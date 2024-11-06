@@ -1,5 +1,5 @@
 {% set name = "normaliz" %}
-{% set version = "3.10.3" %}
+{% set version = "3.10.4" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/Normaliz/Normaliz/releases/download/v{{ version }}/normaliz-{{ version }}.zip
-  sha256: 3470e3f43313d8d840f9b6ea2940e3a01915c8dfbfd61766739cf4101cdae972
+  sha256: a27da096275b1aa5271722eef653a4fcfda60d5166a9dd164443d1e87fcf24c7
   patches:
     - 0001-Do-not-typedef-ssize_t.patch  # [win]
     - 0002-Fix-declarations-of-timeval.patch  # [win]
