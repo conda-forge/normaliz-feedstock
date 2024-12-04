@@ -36,16 +36,13 @@ requirements:
     - libtool                # [not win]
     - make                   # [not win]
   host:
-    - gmp                    # [not win]
-    - gmp                   # [win]
+    - gmp
     - llvm-openmp            # [osx or win]
     - libeantic              # [not win]
     - libboost-headers       # [not win]
     - libflint               # [not win]
     - nauty
-    - pthreads-win32         # [win]
-  run:
-    - llvm-openmp            # [osx or win]
+    - winpthreads-devel      # [win]
 
 test:
   commands:
