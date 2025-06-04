@@ -1,5 +1,5 @@
 {% set name = "normaliz" %}
-{% set version = "3.10.4" %}
+{% set version = "3.10.5" %}
 
 package:
   name: {{ name|lower }}
@@ -7,14 +7,14 @@ package:
 
 source:
   url: https://github.com/Normaliz/Normaliz/releases/download/v{{ version }}/normaliz-{{ version }}.zip
-  sha256: a27da096275b1aa5271722eef653a4fcfda60d5166a9dd164443d1e87fcf24c7
+  sha256: 046908c8a5a3b3b1d52c9e56bb99a5a5789bef384392ef7e98d812a241eacb66
   patches:
     - 0001-Do-not-typedef-ssize_t.patch  # [win]
     - 0002-Fix-declarations-of-timeval.patch  # [win]
     - 0003-Do-not-use-TRUE-as-a-variable-name.patch  # [win]
 
 build:
-  number: 3
+  number: 0
   skip: true  # [win and vc<14]
   run_exports:
     # Normaliz has a history of breaking ABI changes in patch releases, so we
