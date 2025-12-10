@@ -19,7 +19,7 @@ docker_image:
 gmp:
 - '6'
 libboost_headers:
-- '1.86'
+- '1.88'
 libeantic:
 - '2'
 libflint:
