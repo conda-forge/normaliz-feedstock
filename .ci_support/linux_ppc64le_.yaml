@@ -23,7 +23,7 @@ libboost_headers:
 libeantic:
 - '2'
 libflint:
-- '3.3'
+- '3.5'
 target_platform:
 - linux-ppc64le
 zip_keys:

@@ -25,7 +25,7 @@ libboost_headers:
 libeantic:
 - '2'
 libflint:
-- '3.3'
+- '3.5'
 llvm_openmp:
 - '19'
 macos_machine:
