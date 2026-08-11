@@ -21,7 +21,7 @@ cxx_compiler_version:
 gmp:
 - '6'
 libboost_headers:
-- '1.88'
+- '1.90'
 libeantic:
 - '2'
 libflint:
