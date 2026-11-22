@@ -1,4 +1,4 @@
-From aee984e33414870262486afab3647b75d17b8071 Mon Sep 17 00:00:00 2001
+From f8a95379d88e67fc3b2132b9145f1c698aed980c Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Julian=20R=C3=BCth?= <julian.rueth@fsfe.org>
 Date: Fri, 29 Dec 2023 18:50:55 -0600
 Subject: [PATCH 2/3] Fix declarations of timeval
@@ -24,7 +24,7 @@ index f75e113..3fa6000 100644
  #include "libnormaliz/matrix.h"
  
 diff --git a/source/libnormaliz/general.cpp b/source/libnormaliz/general.cpp
-index 9c2778c..70339f4 100644
+index 2e733b9..b741a94 100644
 --- a/source/libnormaliz/general.cpp
 +++ b/source/libnormaliz/general.cpp
 @@ -26,29 +26,6 @@
@@ -58,7 +58,7 @@ index 9c2778c..70339f4 100644
  
  bool verbose = false;
 diff --git a/source/libnormaliz/general.h b/source/libnormaliz/general.h
-index 28c8877..78da3b4 100644
+index 0816a52..2a729c2 100644
 --- a/source/libnormaliz/general.h
 +++ b/source/libnormaliz/general.h
 @@ -31,18 +31,36 @@
