@@ -1,4 +1,4 @@
-From ce08223a80354c8efa5ae0da0853305acfc0a2a2 Mon Sep 17 00:00:00 2001
+From aee984e33414870262486afab3647b75d17b8071 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Julian=20R=C3=BCth?= <julian.rueth@fsfe.org>
 Date: Fri, 29 Dec 2023 18:50:55 -0600
 Subject: [PATCH 2/3] Fix declarations of timeval
@@ -12,7 +12,7 @@ and massage windows header loading so that there are no clashes
  4 files changed, 30 insertions(+), 35 deletions(-)
 
 diff --git a/source/libnormaliz/binomial.h b/source/libnormaliz/binomial.h
-index 64d651e3..299faf18 100644
+index f75e113..3fa6000 100644
 --- a/source/libnormaliz/binomial.h
 +++ b/source/libnormaliz/binomial.h
 @@ -24,7 +24,6 @@
@@ -24,7 +24,7 @@ index 64d651e3..299faf18 100644
  #include "libnormaliz/matrix.h"
  
 diff --git a/source/libnormaliz/general.cpp b/source/libnormaliz/general.cpp
-index 7d2dfd05..65ec2a3a 100644
+index 9c2778c..70339f4 100644
 --- a/source/libnormaliz/general.cpp
 +++ b/source/libnormaliz/general.cpp
 @@ -26,29 +26,6 @@
@@ -58,7 +58,7 @@ index 7d2dfd05..65ec2a3a 100644
  
  bool verbose = false;
 diff --git a/source/libnormaliz/general.h b/source/libnormaliz/general.h
-index 1590a161..d2745c0b 100644
+index 28c8877..78da3b4 100644
 --- a/source/libnormaliz/general.h
 +++ b/source/libnormaliz/general.h
 @@ -31,18 +31,36 @@
@@ -110,7 +110,7 @@ index 1590a161..d2745c0b 100644
  
  #include <libnormaliz/dynamic_bitset.h>
 diff --git a/source/libnormaliz/nmz_nauty.cpp b/source/libnormaliz/nmz_nauty.cpp
-index 00daccc7..ac2715b8 100644
+index 6761c22..3a1b1ea 100644
 --- a/source/libnormaliz/nmz_nauty.cpp
 +++ b/source/libnormaliz/nmz_nauty.cpp
 @@ -25,6 +25,7 @@
@@ -122,5 +122,5 @@ index 00daccc7..ac2715b8 100644
  #include "libnormaliz/matrix.h"
  #include "libnormaliz/nmz_nauty.h"
 -- 
-2.44.0
+2.56.1
 
