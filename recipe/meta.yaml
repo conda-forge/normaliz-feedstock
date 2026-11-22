@@ -14,7 +14,7 @@ source:
     - 0003-Do-not-use-TRUE-as-a-variable-name.patch  # [win]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win and vc<14]
   run_exports:
     # Normaliz has a history of breaking ABI changes in patch releases, so we
@@ -37,7 +37,7 @@ requirements:
     - make                   # [not win]
   host:
     - gmp                    # [not win]
-    - mpir                   # [win]
+    - gmp                   # [win]
     - llvm-openmp            # [osx or win]
     - libeantic              # [not win]
     - libboost-headers       # [not win]
